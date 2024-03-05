@@ -1,34 +1,24 @@
-import { ReadonlyURLSearchParams } from "next/navigation"
+import { redirect } from "next/navigation"
+import { getToken } from "../utili/getToken"
+import { storeAccessToken } from "../utili/cookies"
+import { Octokit } from "octokit"
 
-type SearchParams = { [key: string]: string | string[] | undefined }
+type SearchParams = { [key: string]: string | undefined }
 
 interface PageParams {
   searchParams?: SearchParams
 }
 
-interface TokenParams {
-  client_id: string
-  client_secret: string
-  code: string
-}
-
-function createSearchParams(params: SearchParams) {}
-
-async function getToken(newSearchParams: TokenParams) {
-  const prefix = "https://github.com/login/oauth/access_token?"
-  Object() // finish iteration for url segment
-}
-
 const Auth = async ({ searchParams }: PageParams) => {
   const code = searchParams?.code
+  // get code from redirected URL
+  if (code === undefined) return
 
-  const newSearchParams = {
-    client_id: process.env.CLIENT_ID,
-    client_secret: process.env.CLIENT_SECRET,
-    code: code,
-  }
+  const token = await getToken(code)
+  const octokit = new Octokit({
+    auth: token,
+  })
 
-  // const res = fetch()
   return <div className="absolute-center">Waiting for redirection...</div>
 }
 
