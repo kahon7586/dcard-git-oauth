@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  .markdown {
+    pre > code {
+      @apply flex items-center justify-between text-gray-800 border-gray-800 bg-slate-200 max-w-sm font-mono text-sm py-3 px-4 w-full rounded-md;
+    }
+
+    blockquote {
+      @apply border-l-4 border-gray-500 italic my-4 pl-4 py-2 max-w-md;
+    }
+
+    ul {
+      @apply my-2;
+    }
+
+    li {
+      @apply list-disc list-inside;
+    }
+  }
+}
+
 @layer components {
   .absolute-center {
     @apply min-h-[100vh] flex justify-center items-center;
