@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { getCodePath } from "./utili/getCode"
+import { getCodePath } from "./lib/server/auth/getCode"
 
 export default function Home() {
   return (
