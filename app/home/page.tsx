@@ -1,5 +1,5 @@
 import React from "react"
-import { getData } from "../lib/server/data/getData"
+import { extractIssueListData } from "../lib/server/data/extractIssueListData"
 import IssueList from "../components/IssueList"
 import { getOctokit } from "../lib/server/auth/getOctokit"
 
@@ -14,7 +14,10 @@ const page = async () => {
     repo: process.env.REPO!,
     per_page: 2,
   })
-  const issueListData = getData(res.data)
+  const issueListData = extractIssueListData(res.data)
+
+  if (issueListData === null) return
+  // WIP:situation for empty issue list
 
   return (
     <>
