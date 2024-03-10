@@ -23,18 +23,19 @@ const page = async ({ params }: PageProps) => {
   // innerHTML is sanitized by js-xss in markdownParser
 
   return (
-    <div className="flex flex-col w-full">
-      <div className="flex gap-2 ">
+    <div className="flex flex-col w-full px-4 py-2 gap-4">
+      <div /*title*/ className="px-2 py-1 flex gap-2 items-baseline border rounded-lg">
+        <div className="font-bold text-2xl">{title}</div>
         <div className="text-slate-600 before:content-['('] after:content-[')']">{state}</div>
-        <div className="font-bold ">{title}</div>
         <Avatar
+          className="flex items-baseline"
           avatarUrl={avatar_url}
           alt={`${login} Avatar`}
         />
         <div className="font-light text-sm text-gray-600">{login}</div>
       </div>
 
-      <div className="px-6">
+      <div /*body*/ className="px-6 py-4 border rounded-lg">
         <IssueBody innerHTML={innerHTML} />
       </div>
     </div>
