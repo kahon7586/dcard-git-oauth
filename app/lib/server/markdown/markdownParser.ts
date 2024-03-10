@@ -1,23 +1,11 @@
-import { cookies } from "next/headers"
-import { Octokit } from "octokit"
 import xss from "xss"
+import markdownit from "markdown-it"
 
 export async function markdownParser(markdownStr: string) {
-  const token = cookies().get("access-token")
-  // console.log(token)
+  const md = markdownit()
+  let result = md.render(markdownStr)
 
-  const octokit = new Octokit({
-    auth: token?.value,
-  })
-
-  const res = await octokit.request("POST /markdown", {
-    text: markdownStr,
-    headers: {
-      "X-GitHub-Api-Version": "2022-11-28",
-    },
-  })
-
-  const unsanitizedInnerHTML: string = res.data
+  const unsanitizedInnerHTML: string = result
 
   const sanitizedInnerHTML = xssSanitizer(unsanitizedInnerHTML)
 
