@@ -22,7 +22,7 @@ const Cookies = ({ payload }: CookiesProps) => {
       router.push("/home")
     }
     setCookies()
-  }, [])
+  })
 
   return <></>
 }
