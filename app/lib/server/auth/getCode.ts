@@ -1,8 +1,8 @@
 export function getCodePath() {
   const prefix = "https://github.com/login/oauth/authorize?"
   const client_id = process.env.CLIENT_ID
-  console.log(prefix + `client_id=${client_id}`)
-  return prefix + `client_id=${client_id}`
+  console.log(prefix + `client_id=${client_id}&scope=user%20repo`)
+  return prefix + `client_id=${client_id}&scope=user%20repo`
 }
 
 export async function getCode() {
