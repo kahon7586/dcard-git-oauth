@@ -3,22 +3,20 @@
 import React, { useLayoutEffect, useRef } from "react"
 
 interface IssueBodyProps {
-  innerHTML: string
+  sanitized_innerHTML: string
 }
 
-const IssueBody = ({ innerHTML }: IssueBodyProps) => {
-  const bodyRef = useRef<HTMLDivElement | null>(null)
+const IssueBody = ({ sanitized_innerHTML }: IssueBodyProps) => {
+  /////////////////////////////////////////////////////////
 
-  useLayoutEffect(() => {
-    const body = bodyRef.current
-    if (body === null) throw Error("bodyRef should not being null!")
-    body.innerHTML = innerHTML
-  }, [])
+  // MAKE SURE innerHTML IS SANITIZED FROM XSS ATTACK!! ///
+
+  /////////////////////////////////////////////////////////
 
   return (
     <div
       className="markdown"
-      ref={bodyRef}></div>
+      dangerouslySetInnerHTML={{ __html: sanitized_innerHTML }}></div>
   )
 }
 
