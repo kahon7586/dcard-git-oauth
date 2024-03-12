@@ -2,24 +2,39 @@ import IssueBody from "@/app/components/client/IssueBody"
 import Avatar from "@/app/components/user/Avatar"
 import { getSingleIssueData } from "@/app/lib/server/issue/getSingleIssueData"
 import { markdownParser } from "@/app/lib/server/markdown/markdownParser"
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
+import Link from "next/link"
 import React from "react"
+import Edit from "./pageEdit"
+
+const issueParams = ["edit"]
 
 interface PageProps {
-  params: Params
+  params: { postNumber: string[] }
 }
 
 const page = async ({ params }: PageProps) => {
-  const { postNumber } = params
+  const {
+    postNumber: [postNumber, mode],
+  } = params
 
-  const res = await getSingleIssueData(postNumber[0])
-  const { title, body, user, id, state } = res.data
+  const { title, body, user, id, state } = await getSingleIssueData(postNumber[0])
 
   if (user === null) throw Error(`User return null when loading issue: ${id}`)
 
+  if (issueParams.includes(mode)) {
+    // revalidatePath(`/home/issue/${postNumber}/edit`)
+
+    return (
+      <Edit
+        postNumber={postNumber}
+        content={{ title, body }}
+      />
+    )
+  }
+
   const { login, avatar_url } = user
 
-  const innerHTML = await markdownParser(body!)
+  const innerHTML_sanitized = await markdownParser(body!)
   // innerHTML is sanitized by js-xss in markdownParser
 
   return (
@@ -35,8 +50,13 @@ const page = async ({ params }: PageProps) => {
         <div className="font-light text-sm text-gray-600">{login}</div>
       </div>
 
-      <div /*body*/ className="px-6 py-4 border rounded-lg">
-        <IssueBody innerHTML={innerHTML} />
+      <div /*body*/ className="relative px-6 py-4 border rounded-lg">
+        <Link
+          className="absolute hover:bg-slate-200 border rounded-md px-2 py-1 right-3 top-2"
+          href={`/home/issue/${postNumber}/edit`}>
+          Edit
+        </Link>
+        <IssueBody sanitized_innerHTML={innerHTML_sanitized} />
       </div>
     </div>
   )
