@@ -24,6 +24,6 @@
 
 @layer components {
   .absolute-center {
-    @apply min-h-[100vh] flex justify-center items-center;
+    @apply min-h-[80vh] flex justify-center items-center;
   }
 }
