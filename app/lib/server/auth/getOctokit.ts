@@ -1,8 +1,11 @@
-import { cookies } from "next/headers"
+import { auth } from "@/auth"
 import { Octokit } from "octokit"
 
-export function getOctokit() {
+export async function getOctokit() {
+  const session = await auth()
+  const token = session?.user?.accessToken
+
   return new Octokit({
-    auth: cookies().get("access-token")!.value,
+    auth: token,
   })
 }

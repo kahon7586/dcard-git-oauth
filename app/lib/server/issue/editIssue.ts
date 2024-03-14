@@ -17,7 +17,7 @@ export async function editIssue(prevState: FormState | null, formData: FormData)
   if (title.trim() === "") return { ...initialState, errorMessage: "Please choose a title!" }
   // handle empty input value
 
-  const octokit = getOctokit()
+  const octokit = await getOctokit()
   const { status }: { status: number } = await octokit.request("PATCH /repos/{owner}/{repo}/issues/{issue_number}", {
     repo: process.env.REPO!,
     owner: process.env.OWNER!,

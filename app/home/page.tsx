@@ -4,7 +4,7 @@ import IssueList from "../components/IssueList"
 import { getOctokit } from "../lib/server/auth/getOctokit"
 
 const page = async () => {
-  const octokit = getOctokit()
+  const octokit = await getOctokit()
 
   // Example:
   // https://github.com/kahon7586/dcard-git-oauth/issues
