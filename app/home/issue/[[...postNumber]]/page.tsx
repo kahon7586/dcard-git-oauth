@@ -5,7 +5,9 @@ import { markdownParser } from "@/app/lib/server/markdown/markdownParser"
 import Link from "next/link"
 import React from "react"
 import Edit from "./pageEdit"
+import AdminOnly from "@/app/components/user/AdminOnly"
 import { getCurrUser } from "@/app/lib/server/auth/getCurrUser"
+import { redirect } from "next/navigation"
 
 interface PageProps {
   params: { postNumber: string[] }
@@ -24,16 +26,18 @@ const page = async ({ params }: PageProps) => {
   } = await getSingleIssueData(postNumber[0])
 
   if (mode === "edit") {
+    const { role } = await getCurrUser()
+    if (role !== "admin") redirect("/home")
+
     return (
       <Edit
         postNumber={postNumber}
-        content={{ title, body }}
+        content={{ title, body, number: Number(postNumber) }}
       />
     )
   }
 
-  const { name: currUser, role } = await getCurrUser() // get currUser
-
+  // fix this when body empty
   const innerHTML_sanitized = await markdownParser(body!)
   // innerHTML is sanitized by js-xss in markdownParser
 
@@ -51,14 +55,13 @@ const page = async ({ params }: PageProps) => {
       </div>
 
       <div /*body*/ className="relative px-6 py-4 border rounded-lg">
-        {currUser && currUser === author && role === "admin" ? (
-          // currently there's no edit permission for admin
+        <AdminOnly>
           <Link
             className="absolute hover:bg-slate-200 border rounded-md px-2 py-1 right-3 top-2"
             href={`/home/issue/${postNumber}/edit`}>
             Edit
           </Link>
-        ) : null}
+        </AdminOnly>
 
         <IssueBody sanitized_innerHTML={innerHTML_sanitized} />
       </div>
