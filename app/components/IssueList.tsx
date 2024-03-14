@@ -1,17 +1,17 @@
 import React from "react"
-import { SimpIssueData } from "../ts/data/issueData"
 import IssueItem from "./IssueItem"
+import { getIssueListData } from "../lib/server/issue/getIssueListData"
+import { extractIssueListData } from "../lib/server/data/extractIssueListData"
 
-interface IssueListProps {
-  issueList: SimpIssueData[] | null
-}
+const IssueList = async () => {
+  const rawData = await getIssueListData()
+  const issueListData = extractIssueListData(rawData)
 
-const IssueList = ({ issueList }: IssueListProps) => {
-  if (issueList === null) return <div> no data! </div>
+  if (issueListData === null) return <div> no data! </div>
 
   return (
     <div className="container flex flex-col bg-slate-300">
-      {issueList.map((issue) => (
+      {issueListData.map((issue) => (
         <IssueItem
           issueItem={issue}
           key={issue.content.id}
