@@ -13,6 +13,11 @@ export async function editIssue(prevState: FormState | null, formData: FormData)
   }
 
   const title = formData.get("title") as string | null
+  const body = formData.get("body") as string | null
+
+  const number = formData.get("number") as string | null
+  // number is appended by eventListener in edit form
+
   if (title === null) return { ...initialState, errorMessage: "FormData did not include title value!" }
   if (title.trim() === "") return { ...initialState, errorMessage: "Please choose a title!" }
   // handle empty input value
@@ -21,13 +26,15 @@ export async function editIssue(prevState: FormState | null, formData: FormData)
   const { status }: { status: number } = await octokit.request("PATCH /repos/{owner}/{repo}/issues/{issue_number}", {
     repo: process.env.REPO!,
     owner: process.env.OWNER!,
-    issue_number: 2,
+    issue_number: Number(number),
     title: title,
+    body: body,
   })
 
   switch (status) {
     case 200:
-      revalidatePath("")
+      revalidatePath("/home")
+      // clear cache for latest data
       return {
         errorMessage: "",
         success: true,

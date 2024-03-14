@@ -4,7 +4,7 @@ import React from "react"
 
 interface EditProps {
   postNumber: string
-  content: { title: string; body: string | undefined | null }
+  content: { title: string; body: string | undefined | null; number: number }
 }
 
 const Edit = async ({ postNumber, content }: EditProps) => {
