@@ -3,7 +3,7 @@
 import usePrevPathName from "@/app/hook/usePrevPathName"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import React, { useEffect } from "react"
+import React, { useEffect, useRef } from "react"
 import { useFormState, useFormStatus } from "react-dom"
 
 interface IssueEditFormProp {
@@ -12,6 +12,7 @@ interface IssueEditFormProp {
   content: {
     title: string
     body: string | undefined | null
+    number: number
   }
 }
 
@@ -38,6 +39,25 @@ const IssueEditForm = ({ action, postNumber, content }: IssueEditFormProp) => {
   const router = useRouter()
   const returnPath = usePrevPathName()
 
+  // WIP: build a hook for append number for formdata
+
+  const formRef = useRef<HTMLFormElement | null>(null)
+
+  useEffect(() => {
+    const form = formRef.current!
+
+    const formDataHandler = (e: any) => {
+      const formData = e.formData
+      formData.append("number", content.number)
+    }
+
+    form.addEventListener("formdata", formDataHandler)
+
+    return () => {
+      form.removeEventListener("formdata", formDataHandler)
+    }
+  }, [])
+
   useEffect(() => {
     if (formState?.success) {
       router.push(returnPath)
@@ -45,7 +65,9 @@ const IssueEditForm = ({ action, postNumber, content }: IssueEditFormProp) => {
   })
 
   return (
-    <form action={submitAction}>
+    <form
+      action={submitAction}
+      ref={formRef}>
       {formState?.errorMessage ? (
         <div className="flex w-fit px-2 py-1 border text-red-500 bg-red-100 border-red-500 rounded-lg">
           {formState.errorMessage}
