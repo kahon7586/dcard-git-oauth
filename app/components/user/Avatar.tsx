@@ -14,6 +14,7 @@ const Avatar = ({ avatarUrl, alt, className, ...props }: AvatarProps) => {
       {...props}>
       <Image
         fill
+        sizes="width: 1.5rem height:1.5rem"
         src={avatarUrl}
         alt={alt}
       />
