@@ -6,25 +6,15 @@ import { getIssueListData } from "../lib/server/issue/getIssueListData"
 import { extractIssueListData } from "../lib/server/data/extractIssueListData"
 import IssueItem from "../components/IssueItem"
 
+const ISSUES_PER_LOAD = 10
+
 const page = async () => {
   //WIP: fix the problem when user return back page, the list data is not updated.
 
-  const rawData = await getIssueListData(1, 10)
-  const issueListData = extractIssueListData(rawData)
-  const nodeList = issueListData
-    ? issueListData.map((issue) => (
-        <IssueItem
-          issueItem={issue}
-          key={issue.content.id}
-        />
-      ))
-    : null
-
-  async function getMoreData(pages: number) {
+  async function getIssueNodeList(pages: number) {
     "use server"
-    const rawData = await getIssueListData(pages, 10)
+    const rawData = await getIssueListData(pages, ISSUES_PER_LOAD)
     const issueListData = extractIssueListData(rawData)
-    console.log(`curr page: ${pages}`)
 
     return issueListData
       ? issueListData.map((issue) => (
@@ -36,7 +26,9 @@ const page = async () => {
       : null
   }
 
-  // WIP: package these data fetching
+  const firstPageData = await getIssueNodeList(1)
+  // Note that fetch data first rather than in client side(<IssueList/>)
+  // could lead to better UX
 
   return (
     <div className="flex flex-col w-full items-end">
@@ -48,8 +40,8 @@ const page = async () => {
         </Link>
       </AdminOnly>
       <IssueList
-        issueNodeList={nodeList}
-        action={getMoreData}
+        firstPageData={firstPageData}
+        action={getIssueNodeList}
       />
     </div>
   )
