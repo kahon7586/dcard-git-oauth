@@ -1,5 +1,6 @@
 "use client"
 
+import { useAppendFormdata } from "@/app/hook/useAppendFormdata"
 import usePrevPathName from "@/app/hook/usePrevPathName"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -7,7 +8,7 @@ import React, { useEffect, useRef } from "react"
 import { useFormState, useFormStatus } from "react-dom"
 
 interface IssueEditFormProp {
-  action: (prevState: FormState | null, formData: FormData) => Promise<FormState>
+  editIssue: (prevState: FormState | null, formData: FormData) => Promise<FormState>
   postNumber: string
   content: {
     title: string
@@ -33,8 +34,8 @@ function SubmitBtn() {
   )
 }
 
-const IssueEditForm = ({ action, postNumber, content }: IssueEditFormProp) => {
-  const [formState, submitAction] = useFormState(action, null)
+const IssueEditForm = ({ editIssue, postNumber, content }: IssueEditFormProp) => {
+  const [formState, submitAction] = useFormState(editIssue, null)
 
   const router = useRouter()
   const returnPath = usePrevPathName()
@@ -43,24 +44,12 @@ const IssueEditForm = ({ action, postNumber, content }: IssueEditFormProp) => {
 
   const formRef = useRef<HTMLFormElement | null>(null)
 
-  useEffect(() => {
-    const form = formRef.current!
-
-    const formDataHandler = (e: any) => {
-      const formData = e.formData
-      formData.append("number", content.number)
-    }
-
-    form.addEventListener("formdata", formDataHandler)
-
-    return () => {
-      form.removeEventListener("formdata", formDataHandler)
-    }
-  }, [])
+  useAppendFormdata(formRef, { number: postNumber })
 
   useEffect(() => {
     if (formState?.success) {
-      router.push(returnPath)
+      router.replace(`/issue-list/issue/${postNumber}`)
+      // replace current url (couldn't go back)
     }
   })
 
@@ -95,7 +84,7 @@ const IssueEditForm = ({ action, postNumber, content }: IssueEditFormProp) => {
       <section className="flex gap-2 justify-center mt-6">
         <Link
           className="border rounded-md px-2 py-1 bg-slate-300 hover:bg-slate-200"
-          href={`/home/issue/${postNumber}`}>
+          href={`/issue-list/issue/${postNumber}`}>
           Cancel
         </Link>
         <SubmitBtn />
