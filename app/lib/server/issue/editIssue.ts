@@ -35,7 +35,7 @@ export async function editIssue(prevState: FormState | null, formData: FormData)
     case 200:
       revalidatePath(`/issue-list/issue/${number}`)
       // clear cache before return to issue page
-      // return behavior is in issue
+      // return behavior is in //[[@redirectAfterEdit]]
       return {
         errorMessage: "",
         success: true,

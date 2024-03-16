@@ -49,7 +49,7 @@ const IssueEditForm = ({ editIssue, postNumber, content }: IssueEditFormProp) =>
   useEffect(() => {
     if (formState?.success) {
       router.replace(`/issue-list/issue/${postNumber}`)
-      // replace current url (couldn't go back)
+      // replace current url (couldn't go back) // [[redirectAfterEdit]]
     }
   })
 
