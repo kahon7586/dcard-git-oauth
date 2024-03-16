@@ -4,38 +4,22 @@ import { getSingleIssueData } from "@/app/lib/server/issue/getSingleIssueData"
 import { markdownParser } from "@/app/lib/server/markdown/markdownParser"
 import Link from "next/link"
 import React from "react"
-import Edit from "./pageEdit"
 import AdminOnly from "@/app/components/user/AdminOnly"
-import { getCurrUser } from "@/app/lib/server/auth/getCurrUser"
-import { redirect } from "next/navigation"
+import { revalidatePath } from "next/cache"
 
 interface PageProps {
-  params: { postNumber: string[] }
+  params: { postNumber: string }
 }
 
 const page = async ({ params }: PageProps) => {
-  const {
-    postNumber: [postNumber, mode],
-  } = params
+  const postNumber = params.postNumber
 
   const {
     title,
     body,
     user: { login: author, avatar_url },
     state,
-  } = await getSingleIssueData(postNumber[0])
-
-  if (mode === "edit") {
-    const { role } = await getCurrUser()
-    if (role !== "admin") redirect("/home")
-
-    return (
-      <Edit
-        postNumber={postNumber}
-        content={{ title, body, number: Number(postNumber) }}
-      />
-    )
-  }
+  } = await getSingleIssueData(postNumber)
 
   // fix this when body empty
   const innerHTML_sanitized = await markdownParser(body!)
@@ -58,7 +42,7 @@ const page = async ({ params }: PageProps) => {
         <AdminOnly>
           <Link
             className="absolute hover:bg-slate-200 border rounded-md px-2 py-1 right-3 top-2"
-            href={`/home/issue/${postNumber}/edit`}>
+            href={`/issue-list/edit/${postNumber}`}>
             Edit
           </Link>
         </AdminOnly>

@@ -33,8 +33,9 @@ export async function editIssue(prevState: FormState | null, formData: FormData)
 
   switch (status) {
     case 200:
-      revalidatePath("/home")
-      // clear cache for latest data
+      revalidatePath(`/issue-list/issue/${number}`)
+      // clear cache before return to issue page
+      // return behavior is in issue
       return {
         errorMessage: "",
         success: true,

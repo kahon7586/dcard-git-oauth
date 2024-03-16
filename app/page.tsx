@@ -6,7 +6,7 @@ export default async function page() {
   const session = await auth()
   let user = session?.user?.name
 
-  if (user) redirect("/home")
+  if (user) redirect("/issue-list")
 
   return (
     <div className="min-h-[90vh] flex flex-col gap-10 justify-center items-center">

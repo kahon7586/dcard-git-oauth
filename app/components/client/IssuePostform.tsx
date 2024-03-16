@@ -71,7 +71,7 @@ const IssuePostForm = ({ action }: IssuePostFormProp) => {
       <section className="flex gap-2 justify-center mt-6">
         <Link
           className="border rounded-md px-2 py-1 bg-slate-300 hover:bg-slate-200"
-          href={`/home`}>
+          href={`/issue-list`}>
           Cancel
         </Link>
         <PostBtn />

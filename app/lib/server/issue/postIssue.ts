@@ -32,7 +32,7 @@ export async function postIssue(prevState: FormState | null, formData: FormData)
 
   switch (status) {
     case 201:
-      revalidatePath("/home")
+      revalidatePath("/issue-list")
       // clear cache for latest data
       return {
         errorMessage: "",

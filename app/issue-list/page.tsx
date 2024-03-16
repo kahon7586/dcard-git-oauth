@@ -35,7 +35,7 @@ const page = async () => {
       <AdminOnly>
         <Link
           className="mb-1 px-2 py-1 border rounded-md w-fit"
-          href="/home/new-post">
+          href="/issue-list/new-post">
           Post
         </Link>
       </AdminOnly>

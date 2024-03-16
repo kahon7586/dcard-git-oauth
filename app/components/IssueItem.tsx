@@ -18,7 +18,7 @@ const IssueItem = async ({ issueItem }: IssueItemProps) => {
 
   return (
     <Link
-      href={`/home/issue/${number}`}
+      href={`/issue-list/issue/${number}`}
       className="px-4 py-2 hover:bg-slate-400 hover:cursor-pointer">
       <div className="flex justify-between items-center">
         <div className="flex gap-2 items-baseline text-xl ">
