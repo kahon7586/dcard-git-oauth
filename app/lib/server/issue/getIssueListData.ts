@@ -13,7 +13,5 @@ export async function getIssueListData(newPage: number, per_page: number = 10) {
     page: newPage,
   })
 
-  // console.log(res.data)
-
   return res.data
 }
