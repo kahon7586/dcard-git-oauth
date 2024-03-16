@@ -2,7 +2,6 @@ import { getOctokit } from "../auth/getOctokit"
 
 export async function getSingleIssueData(postID: string | number) {
   if (typeof postID === "string") postID = Number(postID)
-
   const octokit = await getOctokit()
 
   const res = await octokit.request("GET /repos/{owner}/{repo}/issues/{issue_number}", {
