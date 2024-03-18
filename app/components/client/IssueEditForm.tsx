@@ -38,9 +38,6 @@ const IssueEditForm = ({ editIssue, postNumber, content }: IssueEditFormProp) =>
   const [formState, submitAction] = useFormState(editIssue, null)
 
   const router = useRouter()
-  const returnPath = usePrevPathName()
-
-  // WIP: build a hook for append number for formdata
 
   const formRef = useRef<HTMLFormElement | null>(null)
 
