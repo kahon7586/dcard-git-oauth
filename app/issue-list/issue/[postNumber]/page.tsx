@@ -1,11 +1,9 @@
 import IssueBody from "@/app/components/client/IssueBody"
 import Avatar from "@/app/components/user/Avatar"
 import { getSingleIssueData } from "@/app/lib/server/issue/getSingleIssueData"
-import { markdownParser } from "@/app/lib/server/markdown/markdownParser"
 import Link from "next/link"
 import React from "react"
 import AdminOnly from "@/app/components/user/AdminOnly"
-import { revalidatePath } from "next/cache"
 
 interface PageProps {
   params: { postNumber: string }
@@ -21,9 +19,7 @@ const page = async ({ params }: PageProps) => {
     state,
   } = await getSingleIssueData(postNumber)
 
-  // fix this when body empty
-  const innerHTML_sanitized = await markdownParser(body!)
-  // innerHTML is sanitized by js-xss in markdownParser
+  // ! Potential XSS attack may exist in body
 
   return (
     <div className="flex flex-col w-full px-4 py-2 gap-4">
@@ -47,7 +43,7 @@ const page = async ({ params }: PageProps) => {
           </Link>
         </AdminOnly>
 
-        <IssueBody sanitized_innerHTML={innerHTML_sanitized} />
+        <IssueBody sanitized_innerHTML={body!} />
       </div>
     </div>
   )

@@ -25,9 +25,10 @@ const page = async () => {
   }
 
   const firstPageData = await getIssueNodeList(1)
-  // Note that fetch data first rather than in client side(<IssueList/>)
-  // could lead to better UX
-
+  /*
+   * Note that fetch data first rather than in client side(<IssueList/>)
+   * could lead to better UX
+   */
   return (
     <div className="flex flex-col w-full items-end">
       <AdminOnly>
