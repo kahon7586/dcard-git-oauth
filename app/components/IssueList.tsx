@@ -34,7 +34,7 @@ const IssueList = ({ firstPageData, action: getIssueNodeList }: IssueListProps) 
     }
 
     pushData()
-  }, [isBottom])
+  }, [isBottom, getIssueNodeList, isNoMoreData, setIsBottom])
 
   return (
     <div

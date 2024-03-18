@@ -17,7 +17,7 @@ export function useInfiniteScroll(
   const [isBottom, setIsBottom] = useState(false)
 
   useEffect(() => {
-    if (scrollRef.current === null) return
+    if (scrollRef.current === null) throw Error("No scroll ref in useInfiniteScroll")
 
     const scrollDiv = scrollRef.current
 
@@ -43,7 +43,7 @@ export function useInfiniteScroll(
     return () => {
       scrollDiv.removeEventListener("scroll", throttle(scrollHandler, TEST_THROTTLE_DELAY))
     }
-  }, [])
+  })
 
   return [isBottom, setIsBottom] as [boolean, (state: boolean | (() => boolean)) => void]
 }

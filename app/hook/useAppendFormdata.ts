@@ -23,7 +23,7 @@ export function useAppendFormdata(
     return () => {
       form.removeEventListener("formdata", formDataHandler)
     }
-  }, [])
+  })
 
   return
 }
