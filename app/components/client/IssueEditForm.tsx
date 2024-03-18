@@ -1,10 +1,8 @@
 "use client"
 
 import { useAppendFormdata } from "@/app/hook/useAppendFormdata"
-import usePrevPathName from "@/app/hook/usePrevPathName"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import React, { useEffect, useRef } from "react"
+import React, { useRef } from "react"
 import { useFormState, useFormStatus } from "react-dom"
 
 interface IssueEditFormProp {
@@ -37,18 +35,9 @@ function SubmitBtn() {
 const IssueEditForm = ({ editIssue, postNumber, content }: IssueEditFormProp) => {
   const [formState, submitAction] = useFormState(editIssue, null)
 
-  const router = useRouter()
-
   const formRef = useRef<HTMLFormElement | null>(null)
 
-  useAppendFormdata(formRef, { number: postNumber })
-
-  useEffect(() => {
-    if (formState?.success) {
-      router.replace(`/issue-list/issue/${postNumber}`)
-      // replace current url (couldn't go back) // [[redirectAfterEdit]]
-    }
-  })
+  useAppendFormdata(formRef, { number: postNumber }) //[[appendNumber]]
 
   return (
     <form

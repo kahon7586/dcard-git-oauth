@@ -1,9 +1,7 @@
 "use client"
 
-import usePrevPathName from "@/app/hook/usePrevPathName"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import React, { useEffect } from "react"
+import React from "react"
 import { useFormState, useFormStatus } from "react-dom"
 
 interface IssuePostFormProp {
@@ -29,15 +27,6 @@ function PostBtn() {
 
 const IssuePostForm = ({ action }: IssuePostFormProp) => {
   const [formState, submitAction] = useFormState(action, null)
-
-  const router = useRouter()
-  const returnPath = usePrevPathName()
-
-  useEffect(() => {
-    if (formState?.success) {
-      router.push(returnPath)
-    }
-  })
 
   return (
     <form action={submitAction}>

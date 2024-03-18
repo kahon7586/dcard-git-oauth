@@ -1,6 +1,7 @@
 import { FormState } from "@/app/components/client/IssueEditForm"
 import { getOctokit } from "../auth/getOctokit"
 import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 
 // Action for sending form to post issue
 
@@ -13,18 +14,20 @@ export async function postIssue(prevState: FormState | null, formData: FormData)
   }
 
   const title = formData.get("title") as string | null
-  const body = formData.get("body") as string | undefined
+  const body = formData.get("body") as string | null
 
-  if (title === null) return { ...initialState, errorMessage: "FormData did not include title value!" }
-  if (title.trim() === "") return { ...initialState, errorMessage: "Please choose a title!" }
+  if (title && title.trim() === "") return { ...initialState, errorMessage: "Please choose a title!" }
   // handle empty input value
+
+  if (body && body.length < 30) return { ...initialState, errorMessage: "Body must more than 30 words." }
+  // handle body value
 
   const octokit = await getOctokit()
   const { status }: { status: number } = await octokit.request("POST /repos/{owner}/{repo}/issues", {
     owner: process.env.OWNER!,
     repo: process.env.REPO!,
-    title: title,
-    body: body,
+    title: title!,
+    body: body!,
     headers: {
       "X-GitHub-Api-Version": "2022-11-28",
     },
@@ -34,10 +37,8 @@ export async function postIssue(prevState: FormState | null, formData: FormData)
     case 201:
       revalidatePath("/issue-list")
       // clear cache for latest data
-      return {
-        errorMessage: "",
-        success: true,
-      }
+      redirect("/issue-list")
+
     case 400:
       return {
         ...initialState,

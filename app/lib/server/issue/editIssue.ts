@@ -1,6 +1,7 @@
 import { FormState } from "@/app/components/client/IssueEditForm"
 import { getOctokit } from "../auth/getOctokit"
 import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 
 // Action for sending form to edit issue
 
@@ -16,11 +17,13 @@ export async function editIssue(prevState: FormState | null, formData: FormData)
   const body = formData.get("body") as string | null
 
   const number = formData.get("number") as string | null
-  // number is appended by eventListener in edit form
+  // number is appended by eventListener in edit form //[[@appendNumber]]
 
-  if (title === null) return { ...initialState, errorMessage: "FormData did not include title value!" }
-  if (title.trim() === "") return { ...initialState, errorMessage: "Please choose a title!" }
+  if (title!.trim() === "") return { ...initialState, errorMessage: "Please choose a title!" }
   // handle empty input value
+
+  if (body!.length < 30) return { ...initialState, errorMessage: "Body must more than 30 words." }
+  // handle body value
 
   const octokit = await getOctokit()
   const { status }: { status: number } = await octokit.request("PATCH /repos/{owner}/{repo}/issues/{issue_number}", {
@@ -33,13 +36,10 @@ export async function editIssue(prevState: FormState | null, formData: FormData)
 
   switch (status) {
     case 200:
-      revalidatePath(`/issue-list/issue/${number}`)
+      revalidatePath("/issue-list/issue/[postNumber]", "page")
       // clear cache before return to issue page
-      // return behavior is in //[[@redirectAfterEdit]]
-      return {
-        errorMessage: "",
-        success: true,
-      }
+
+      redirect(`/issue-list/issue/${number}`)
     case 301:
       return {
         ...initialState,
