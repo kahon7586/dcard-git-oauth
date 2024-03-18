@@ -9,8 +9,6 @@ import IssueItem from "../components/IssueItem"
 const ISSUES_PER_LOAD = 10
 
 const page = async () => {
-  //WIP: fix the problem when user return back page, the list data is not updated.
-
   async function getIssueNodeList(pages: number) {
     "use server"
     const rawData = await getIssueListData(pages, ISSUES_PER_LOAD)
