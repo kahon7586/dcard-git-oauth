@@ -48,4 +48,5 @@ export const {
       return session // this session will be returned when calling auth() in server side
     },
   },
+  trustHost: true,
 })
