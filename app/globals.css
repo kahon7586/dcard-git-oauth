@@ -2,50 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  .markdown p,
-  .markdown blockquote,
-  .markdown ul,
-  .markdown ol,
-  .markdown dl,
-  .markdown table,
-  .markdown pre,
-  .markdown details {
-    margin-top: 0;
-    margin-bottom: 16px;
-  }
-
-  .markdown h1,
-  .markdown h2,
-  .markdown h3,
-  .markdown h4,
-  .markdown h5,
-  .markdown h6 {
-    margin-top: 24px;
-    margin-bottom: 16px;
-    font-weight: var(--base-text-weight-semibold, 600);
-    line-height: 1.25;
-  }
-
-  .markdown {
-    pre > code {
-      @apply flex items-center justify-between text-gray-800 border-gray-800 bg-slate-200 max-w-sm font-mono text-sm py-3 px-4 w-full rounded-md;
-    }
-
-    blockquote {
-      @apply border-l-4 border-gray-500 italic my-4 pl-4 py-2 max-w-md;
-    }
-
-    ul {
-      @apply my-2;
-    }
-
-    li {
-      @apply list-disc list-inside;
-    }
-  }
-}
-
 @layer components {
   .absolute-center {
     @apply min-h-[80vh] flex justify-center items-center;

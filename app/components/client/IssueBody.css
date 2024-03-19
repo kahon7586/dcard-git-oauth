@@ -1,2 +1,11 @@
-@import "@primer/css/index.scss";
-/* try to implement primer style in body */
+.markdown-body {
+  @apply bg-slate-300 text-black;
+}
+
+.markdown-body li {
+  @apply !list-disc list-inside;
+}
+
+.markdown-body ul {
+  @apply pl-[1em];
+}

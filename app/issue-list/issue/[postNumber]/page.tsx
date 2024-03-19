@@ -14,7 +14,7 @@ const page = async ({ params }: PageProps) => {
 
   const {
     title,
-    body,
+    body_html,
     user: { login: author, avatar_url },
     state,
   } = await getSingleIssueData(postNumber)
@@ -34,16 +34,16 @@ const page = async ({ params }: PageProps) => {
         <div className="font-light text-sm text-gray-600">{author}</div>
       </div>
 
-      <div /*body*/ className="relative px-6 py-4 border rounded-lg">
+      <div /*body*/ className="relative">
         <AdminOnly>
           <Link
-            className="absolute hover:bg-slate-200 border rounded-md px-2 py-1 right-3 top-2"
+            className="absolute bg-slate-300 hover:bg-slate-200 border rounded-md px-2 py-1 right-3 top-2"
             href={`/issue-list/edit/${postNumber}`}>
             Edit
           </Link>
         </AdminOnly>
 
-        <IssueBody sanitized_innerHTML={body!} />
+        <IssueBody sanitized_innerHTML={body_html!} />
       </div>
     </div>
   )
