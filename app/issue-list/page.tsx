@@ -3,7 +3,6 @@ import IssueList from "../components/IssueList"
 import Link from "next/link"
 import AdminOnly from "../components/user/AdminOnly"
 import { getIssueListData } from "../lib/server/issue/getIssueListData"
-import { extractIssueListData } from "../lib/server/data/extractIssueListData"
 import IssueItem from "../components/IssueItem"
 
 const ISSUES_PER_LOAD = 10
@@ -11,8 +10,7 @@ const ISSUES_PER_LOAD = 10
 const page = async () => {
   async function getIssueNodeList(pages: number) {
     "use server"
-    const rawData = await getIssueListData(pages, ISSUES_PER_LOAD)
-    const issueListData = extractIssueListData(rawData)
+    const issueListData = await getIssueListData(pages, ISSUES_PER_LOAD)
 
     return issueListData
       ? issueListData.map((issue) => (

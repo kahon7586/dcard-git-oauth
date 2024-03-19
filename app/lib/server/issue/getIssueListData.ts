@@ -1,4 +1,6 @@
+import { IssueContentData, SimpIssueData } from "@/app/ts/data/issueData"
 import { getOctokit } from "../auth/getOctokit"
+import { getStatusMessage } from "../github/getStatusMessage"
 
 export async function getIssueListData(newPage: number, per_page: number = 10) {
   const octokit = await getOctokit()
@@ -13,5 +15,25 @@ export async function getIssueListData(newPage: number, per_page: number = 10) {
     page: newPage,
   })
 
-  return res.data
+  const { data, status } = res
+
+  getStatusMessage(status, getIssueListData.name)
+
+  if (data.length === 0) return null
+
+  return data.map((issue) => {
+    const { title, body, id, state, number, user } = issue
+
+    if (user === null) throw Error("Author not found with this issue id: " + id)
+
+    const contentData: IssueContentData = {
+      title,
+      body,
+      id,
+      state,
+      number,
+    }
+
+    return { content: contentData, user: user } as SimpIssueData
+  })
 }
