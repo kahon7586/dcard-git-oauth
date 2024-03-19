@@ -2,10 +2,21 @@
   @apply bg-slate-300 text-black;
 }
 
-.markdown-body li {
-  @apply !list-disc list-inside;
-}
+.markdown-body {
+  ul {
+    @apply !list-disc;
+  }
 
-.markdown-body ul {
-  @apply pl-[1em];
+  ol {
+    @apply !list-decimal;
+  }
+
+  ul,
+  ol {
+    @apply pl-[1em];
+  }
+
+  pre {
+    @apply bg-slate-900;
+  }
 }
