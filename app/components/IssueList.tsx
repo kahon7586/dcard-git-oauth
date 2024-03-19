@@ -40,7 +40,7 @@ const IssueList = ({ firstPageData, action: getIssueNodeList }: IssueListProps) 
       className="container flex flex-col bg-slate-300 max-h-[300px] overflow-auto"
       ref={issueListRef}>
       {isBottom && !isNoMoreData ? (
-        <div className="sticky top-[50%] flex justify-center items-center my-4 cursor-default">
+        <div className="sticky top-[50%] flex justify-center items-center my-4 cursor-default ">
           <Spinner />
           Loading...
         </div>
@@ -54,10 +54,3 @@ const IssueList = ({ firstPageData, action: getIssueNodeList }: IssueListProps) 
 }
 
 export default IssueList
-
-/* 
-WIP: try to build a filter in list, see:
-https://medium.com/%E6%89%8B%E5%AF%AB%E7%AD%86%E8%A8%98/react-hooks-usestate-vs-usereducer-b14966ad37dd
-https://overreacted.io/a-complete-guide-to-useeffect/
-
-*/
