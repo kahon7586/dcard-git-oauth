@@ -2,20 +2,20 @@
 
 // IssueDataList
 // octokit.request("GET /repos/{owner}/{repo}/issues", {...})
-export interface ResData {
+export interface ResIssueData {
   // from response
   title: string
   body?: string | null | undefined
   id: number
   state: string
   number: number // the issue number in issueList of specified repo
-  user: UserDataOrNull
+  user: UserData | null
   [key: string]: unknown
 }
 
 export interface SimpIssueData {
-  content: ContentData
-  user: UserDataOrNull
+  content: IssueContentData
+  user: UserData | null
 }
 
 export interface UserData {
@@ -24,9 +24,7 @@ export interface UserData {
   login: string
 }
 
-export type UserDataOrNull = UserData | null
-
-export interface ContentData {
+export interface IssueContentData {
   id: number
   state: string
   title: string
