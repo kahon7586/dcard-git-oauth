@@ -9,12 +9,12 @@ interface IssueItemProps {
 
 const IssueItem = async ({ issueItem }: IssueItemProps) => {
   const {
-    content: { title, body, id, state, number },
+    content: { title, state, number },
     user,
   } = issueItem
   if (user === null) return
 
-  const { id: userID, login: login, avatar_url: avatar_url } = user
+  const { login: login, avatar_url: avatar_url } = user
 
   return (
     <Link
