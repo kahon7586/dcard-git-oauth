@@ -12,7 +12,6 @@ const IssueItem = async ({ issueItem }: IssueItemProps) => {
     content: { title, state, number },
     user,
   } = issueItem
-  if (user === null) return
 
   const { login: login, avatar_url: avatar_url } = user
 

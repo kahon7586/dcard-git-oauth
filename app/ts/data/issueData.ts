@@ -15,7 +15,7 @@ export interface ResIssueData {
 
 export interface SimpIssueData {
   content: IssueContentData
-  user: UserData | null
+  user: UserData
 }
 
 export interface UserData {

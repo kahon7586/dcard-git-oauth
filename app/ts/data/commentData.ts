@@ -16,5 +16,5 @@ export interface CommentContentData {
 
 export interface SimpCommentData {
   content: CommentContentData
-  user: UserData | null
+  user: UserData
 }
