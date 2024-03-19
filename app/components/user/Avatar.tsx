@@ -10,7 +10,7 @@ interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
 const Avatar = ({ avatarUrl, alt, className, ...props }: AvatarProps) => {
   return (
     <div
-      className={twMerge("size-5 relative", className)}
+      className={twMerge("size-5 relative flex-shrink-0 object-cover overflow-hidden", className)}
       {...props}>
       <Image
         fill
