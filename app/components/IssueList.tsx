@@ -32,23 +32,23 @@ const IssueList = ({ firstPageData, action: getIssueNodeList }: IssueListProps) 
       pageRef.current += 1
       setIsBottom(false)
     }
-
     pushData()
   }, [isBottom, getIssueNodeList, isNoMoreData, setIsBottom])
 
   return (
     <div
-      className="container flex flex-col  bg-slate-300 max-h-[300px] overflow-auto"
+      className="container flex flex-col bg-slate-300 max-h-[300px] overflow-auto"
       ref={issueListRef}>
-      {list}
-      {isNoMoreData ? (
-        <div className="flex justify-center my-4">No More Data!</div>
-      ) : (
-        <div className="flex justify-center items-center my-4">
+      {isBottom && !isNoMoreData ? (
+        <div className="sticky top-[50%] flex justify-center items-center my-4 cursor-default">
           <Spinner />
           Loading...
         </div>
-      )}
+      ) : null}
+
+      {list}
+
+      {isNoMoreData ? <div className="flex justify-center my-4">No More Data!</div> : null}
     </div>
   )
 }
