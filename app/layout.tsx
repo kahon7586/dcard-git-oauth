@@ -37,7 +37,6 @@ export default async function RootLayout({
               <button
                 className="border rounded-md py-1 px-2"
                 type="submit">
-                {" "}
                 Sign Out
               </button>
             </form>
