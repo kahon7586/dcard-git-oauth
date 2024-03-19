@@ -5,8 +5,8 @@ const TEST_THROTTLE_DELAY = 200
 
 export function useInfiniteScroll(
   scrollRef: MutableRefObject<HTMLDivElement | null>,
-  effectFn?: React.EffectCallback,
-  triggerHeight: number = 10
+  triggerHeight: number = 10,
+  effectFn?: React.EffectCallback
 ) {
   // Using useInfiniteScroll like useState
 
