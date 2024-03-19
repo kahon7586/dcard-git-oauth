@@ -19,8 +19,6 @@ export async function getSingleIssueData(postID: string | number) {
 
   const { title, body_html, user, id, state } = res.data
 
-  console.log(body_html)
-
   if (user === null) throw Error(`User return null when loading issue: ${id}`)
 
   return { title, body: body_html, user, id, state }

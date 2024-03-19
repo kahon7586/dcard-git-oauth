@@ -21,8 +21,6 @@ export async function markdownParser(markdownStr: string) {
 
   const sanitizedInnerHTML = xssSanitizer(unsanitizedInnerHTML)
 
-  // console.log(sanitizedInnerHTML)
-
   return sanitizedInnerHTML
 }
 
