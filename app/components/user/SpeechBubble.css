@@ -1,0 +1,16 @@
+.speech-bubble {
+  @apply px-4 py-2 relative bg-white;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+}
+
+.speech-bubble::after {
+  @apply hidden md:block;
+  content: "";
+  position: absolute;
+  top: 18px;
+  left: -18px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent #fff transparent transparent;
+}
