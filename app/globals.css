@@ -1,3 +1,5 @@
+@import "github-markdown-css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,5 +7,28 @@
 @layer components {
   .absolute-center {
     @apply min-h-[80vh] flex justify-center items-center;
+  }
+}
+
+.markdown-body {
+  @apply bg-slate-300 text-black p-[15px] md:p-[30px] border rounded-lg min-h-[3rem];
+}
+
+.markdown-body {
+  ul {
+    @apply !list-disc;
+  }
+
+  ol {
+    @apply !list-decimal;
+  }
+
+  ul,
+  ol {
+    @apply !pl-[1em];
+  }
+
+  pre {
+    @apply !bg-slate-900;
   }
 }
