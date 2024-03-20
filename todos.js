@@ -6,6 +6,11 @@ https://overreacted.io/a-complete-guide-to-useeffect/
 // WIP: length test for title and body
 
 // WIP: markdown preview
+WIP: add preview to post issue
+
+WIP: add close issue confirm
+
+WIP: add number in issue-list
 
 WIP: deal with switch status code
 */
