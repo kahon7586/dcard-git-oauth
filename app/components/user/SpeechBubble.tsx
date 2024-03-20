@@ -35,7 +35,9 @@ const SpeechBubble = ({ data }: SpeechBubbleProps) => {
           <div className="text-gray-500">{getTimeAgoLabel(created_at, updated_at)}</div>
         </div>
 
-        <div>{body}</div>
+        <div
+          className="first:mt-4"
+          dangerouslySetInnerHTML={{ __html: body ?? "" }}></div>
       </div>
     </div>
   )
