@@ -12,6 +12,7 @@ export interface CommentContentData {
   id: number
   body: string | null | undefined
   updated_at: string
+  created_at: string
 }
 
 export interface SimpCommentData {

@@ -6,6 +6,7 @@ import DeleteBtn from "./DeleteBtn"
 import IssueBody from "./client/IssueBody"
 import AdminOnly from "./user/AdminOnly"
 import Avatar from "./user/Avatar"
+import { getTimeAgoLabel } from "../lib/server/comments/getTimeAgoLabel"
 
 interface IssueTitleAndBodyProps {
   postNumber: number
@@ -17,21 +18,31 @@ const IssueTitleAndBody = async ({ postNumber }: IssueTitleAndBodyProps) => {
     body_html,
     user: { login: author, avatar_url },
     state,
+    updated_at,
+    created_at,
   } = await getSingleIssueData(postNumber)
 
   // ! Potential XSS attack may exist in body
 
   return (
     <>
-      <div /*title*/ className="px-2 py-1 flex gap-2 items-baseline border rounded-lg">
-        <div className="font-bold text-2xl">{title}</div>
-        <div className="text-slate-600 before:content-['('] after:content-[')']">{state}</div>
-        <Avatar
-          className="flex items-baseline"
-          avatarUrl={avatar_url}
-          alt={`${author} Avatar`}
-        />
-        <div className="font-light text-sm text-gray-600">{author}</div>
+      <div /*title*/ className="px-2 py-1 flex flex-col gap-2 items-baseline border rounded-lg">
+        <div className="font-bold text-2xl">
+          {title}
+          <span className="ml-2 font-semibold text-md text-gray-500">{`# ${postNumber}`}</span>
+        </div>
+        <div className="flex gap-2">
+          <div className="text-slate-600 before:content-['('] after:content-[')']">{state}</div>
+          <Avatar
+            className="flex items-baseline"
+            avatarUrl={avatar_url}
+            alt={`${author} Avatar`}
+          />
+          <div className="font-light text-sm text-gray-600">
+            {author}
+            <span className="before:content-['_·_']">{getTimeAgoLabel(created_at, updated_at)}</span>
+          </div>
+        </div>
       </div>
 
       <div /*body*/ className="">

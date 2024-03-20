@@ -22,7 +22,7 @@ export async function getIssueListData(newPage: number, per_page: number = 10) {
   if (data.length === 0) return null
 
   return data.map((issue) => {
-    const { title, body, id, state, number, user } = issue
+    const { title, body, id, state, number, user, created_at, updated_at } = issue
 
     if (user === null) throw Error("Author not found with this issue id: " + id)
 
@@ -32,6 +32,8 @@ export async function getIssueListData(newPage: number, per_page: number = 10) {
       id,
       state,
       number,
+      created_at,
+      updated_at,
     }
 
     return { content: contentData, user: user } as SimpIssueData

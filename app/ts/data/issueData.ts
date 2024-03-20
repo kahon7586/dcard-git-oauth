@@ -30,4 +30,6 @@ export interface IssueContentData {
   title: string
   body: string | null | undefined
   number: number
+  created_at: string
+  updated_at: string
 }

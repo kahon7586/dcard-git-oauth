@@ -2,6 +2,7 @@ import React from "react"
 import "./SpeechBubble.css"
 import Avatar from "./Avatar"
 import { SimpCommentData } from "@/app/ts/data/commentData"
+import { getTimeAgoLabel } from "@/app/lib/server/comments/getTimeAgoLabel"
 
 interface SpeechBubbleProps {
   data: SimpCommentData
@@ -9,7 +10,7 @@ interface SpeechBubbleProps {
 
 const SpeechBubble = ({ data }: SpeechBubbleProps) => {
   const {
-    content: { body, updated_at },
+    content: { body, updated_at, created_at },
     user: { login, avatar_url },
   } = data
 
@@ -22,15 +23,19 @@ const SpeechBubble = ({ data }: SpeechBubbleProps) => {
       />
 
       <div className="speech-bubble markdown-body flex-col md:flex">
-        <div className="after:content-[':'] font-bold flex">
-          {login}
-          <Avatar
-            className="mx-2 block md:hidden rounded-full size-6"
-            avatarUrl={avatar_url}
-            alt={`${login} avatar`}
-          />
+        <div className="flex ">
+          <div className="after:content-[':'] font-bold flex mr-2">
+            {login}
+            <Avatar
+              className="mx-2 block md:hidden rounded-full size-6"
+              avatarUrl={avatar_url}
+              alt={`${login} avatar`}
+            />
+          </div>
+          <div className="text-gray-500">{getTimeAgoLabel(created_at, updated_at)}</div>
         </div>
-        <div className="ml-0 md:ml-2">{body}</div>
+
+        <div>{body}</div>
       </div>
     </div>
   )

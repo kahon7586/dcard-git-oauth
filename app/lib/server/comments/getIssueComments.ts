@@ -21,11 +21,11 @@ export async function getIssueComments(postNumber: number) {
   if (dataList.length === 0) return null
 
   return dataList.map((data: ResCommentData) => {
-    const { id, updated_at, body, user } = data
+    const { id, updated_at, created_at, body, user } = data
 
     if (user === null) throw Error("Author not found with this comment id: " + id)
 
-    const contentData = { id, updated_at, body }
+    const contentData = { id, updated_at, created_at, body }
 
     return { content: contentData, user: user } as SimpCommentData
   })

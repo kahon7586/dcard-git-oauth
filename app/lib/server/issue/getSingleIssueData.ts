@@ -17,9 +17,9 @@ export async function getSingleIssueData(postID: string | number) {
   // ! In order to keep right structure of paragraph, body_html is will directly implement in DOM
   // ! However, there's no evidence that github sanitized xss danger for us
 
-  const { title, body, body_html, user, id, state } = res.data
+  const { title, body, body_html, user, id, state, updated_at, created_at } = res.data
 
   if (user === null) throw Error(`User return null when loading issue: ${id}`)
 
-  return { title, body, body_html, user, id, state }
+  return { title, body, body_html, user, id, state, updated_at, created_at }
 }
