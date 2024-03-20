@@ -34,9 +34,9 @@ const IssueTitleAndBody = async ({ postNumber }: IssueTitleAndBodyProps) => {
         <div className="font-light text-sm text-gray-600">{author}</div>
       </div>
 
-      <div /*body*/ className="relative">
+      <div /*body*/ className="">
         <AdminOnly>
-          <div className="absolute flex right-3 top-2 gap-2">
+          <div className="float-right px-4 py-2 flex right-3 top-2 gap-2">
             <Link
               className="bg-slate-300 hover:bg-slate-200 border rounded-md px-2 py-1 "
               href={`/issue-list/edit/${postNumber}`}>
