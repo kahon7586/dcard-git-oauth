@@ -1,10 +1,16 @@
+"use server"
+
 import xss from "xss"
 import { getOctokit } from "../auth/getOctokit"
 
 /*
- * Currently innerHTML is being called from github rest api.
- * However, there's no evidence that github sanitized xss danger for us
- * So this markdownParser is reserved for future needed.
+// Currently innerHTML is being called from github rest api.
+// However, there's no evidence that github sanitized xss danger for us
+//So this markdownParser is reserved for future needed.
+ */
+
+/*
+ * This parser is currently used in markdown preview
  */
 
 export async function markdownParser(markdownStr: string) {
@@ -19,11 +25,12 @@ export async function markdownParser(markdownStr: string) {
 
   const unsanitizedInnerHTML: string = res.data
 
-  const sanitizedInnerHTML = xssSanitizer(unsanitizedInnerHTML)
+  //// const sanitizedInnerHTML = xssSanitizer(unsanitizedInnerHTML)
+  // * Use xssSanitizer will destory some some syntax, like: task list
 
-  return sanitizedInnerHTML
+  return unsanitizedInnerHTML
 }
 
-function xssSanitizer(unsanitizedString: string) {
-  return xss(unsanitizedString)
-}
+// function xssSanitizer(unsanitizedString: string) {
+//   return xss(unsanitizedString)
+// }

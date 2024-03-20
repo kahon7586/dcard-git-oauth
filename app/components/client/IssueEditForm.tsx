@@ -1,13 +1,15 @@
 "use client"
 
 import { useAppendFormdata } from "@/app/hook/useAppendFormdata"
+import { markdownParser } from "@/app/lib/server/markdown/markdownParser"
 import Link from "next/link"
-import React, { useRef } from "react"
+import React, { useRef, useState } from "react"
 import { useFormState, useFormStatus } from "react-dom"
 
 interface IssueEditFormProp {
   editIssue: (prevState: FormState | null, formData: FormData) => Promise<FormState>
   postNumber: string
+  markdownParser: (markdownStr: string) => Promise<string>
   content: {
     title: string
     body: string | undefined | null
@@ -34,10 +36,37 @@ function SubmitBtn() {
 
 const IssueEditForm = ({ editIssue, postNumber, content }: IssueEditFormProp) => {
   const [formState, submitAction] = useFormState(editIssue, null)
-
   const formRef = useRef<HTMLFormElement | null>(null)
-
   useAppendFormdata(formRef, { number: postNumber }) //[[appendNumber]]
+
+  const [isPreview, setIsPreview] = useState(false)
+  const [previewHTML, setPreviewHTML] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+
+  const editorRef = useRef<HTMLTextAreaElement | null>(null)
+
+  async function handleClickPreview() {
+    // Preview -> edit
+    if (isPreview) {
+      setIsPreview(false)
+      return
+    }
+
+    // Edit -> Preview
+    const editor = editorRef.current!
+    const currMarkdown = editor.value
+
+    try {
+      setIsLoading(true)
+      const markdonwHTML = await markdownParser(currMarkdown) //! unsanitized
+      setPreviewHTML(markdonwHTML)
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setIsPreview(true)
+      setIsLoading(false)
+    }
+  }
 
   return (
     <form
@@ -58,12 +87,34 @@ const IssueEditForm = ({ editIssue, postNumber, content }: IssueEditFormProp) =>
           defaultValue={content.title}
         />
       </section>
-      <section>
-        <label htmlFor="body">Body</label>
+
+      <section className="flex flex-col font-bold text-xl gap-2">
+        <div className="flex w-fit gap-2 items-center">
+          <label htmlFor="body">Body</label>
+          <button
+            className="border px-2 rounded-md bg-slate-300 hover:bg-slate-200 disabled:bg-gray-300 disabled:cursor-wait disabled:text-gray-500"
+            onClick={handleClickPreview}
+            type="button"
+            disabled={isLoading}>
+            {isLoading ? "loading..." : isPreview ? "edit" : "preview"}
+          </button>
+        </div>
+
+        {/* <--- Markdown preview ---> */}
+        <div
+          className={`${
+            isPreview ? null : "hidden"
+          } markdown-body block text-gray-700 text-sm font-bold resize-none w-full px-2 py-1`}
+          dangerouslySetInnerHTML={{ __html: previewHTML }}></div>
+
+        {/* <--- Markdown editor ---> */}
         <textarea
-          className="block text-gray-700 text-sm font-bold resize-none w-full h-[400px] px-2"
+          className={`${
+            isPreview ? "hidden" : null
+          } block text-gray-700 text-sm font-bold resize-none w-full h-[400px] px-2 py-1`}
           name="body"
           defaultValue={content.body ?? ""}
+          ref={editorRef}
         />
       </section>
 
