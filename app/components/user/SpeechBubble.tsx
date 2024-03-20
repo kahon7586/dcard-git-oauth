@@ -2,7 +2,7 @@ import React from "react"
 import "./SpeechBubble.css"
 import Avatar from "./Avatar"
 import { SimpCommentData } from "@/app/ts/data/commentData"
-import { getTimeAgoLabel } from "@/app/lib/server/comments/getTimeAgoLabel"
+import { getTimeAgoLabel } from "@/app/lib/common/getTimeAgoLabel"
 
 interface SpeechBubbleProps {
   data: SimpCommentData

@@ -2,7 +2,7 @@ import React from "react"
 import { SimpIssueData } from "../ts/data/issueData"
 import Avatar from "./user/Avatar"
 import Link from "next/link"
-import { getTimeAgoLabel } from "../lib/server/comments/getTimeAgoLabel"
+import { getTimeAgoLabel } from "../lib/common/getTimeAgoLabel"
 
 interface IssueItemProps {
   issueItem: SimpIssueData

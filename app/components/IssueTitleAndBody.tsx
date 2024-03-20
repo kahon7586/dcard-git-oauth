@@ -6,7 +6,7 @@ import DeleteBtn from "./DeleteBtn"
 import IssueBody from "./client/IssueBody"
 import AdminOnly from "./user/AdminOnly"
 import Avatar from "./user/Avatar"
-import { getTimeAgoLabel } from "../lib/server/comments/getTimeAgoLabel"
+import { getTimeAgoLabel } from "../lib/common/getTimeAgoLabel"
 
 interface IssueTitleAndBodyProps {
   postNumber: number
