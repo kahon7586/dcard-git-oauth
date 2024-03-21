@@ -17,7 +17,7 @@ export async function getIssueComments(postNumber: number) {
 
   const { data: dataList, status } = res
 
-  getStatusMessage(status, getIssueComments.name)
+  if (status !== 200) throw Error(getStatusMessage(status, getIssueComments.name))
 
   if (dataList.length === 0) return null
 

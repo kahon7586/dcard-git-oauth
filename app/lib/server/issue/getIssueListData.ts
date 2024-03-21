@@ -17,7 +17,7 @@ export async function getIssueListData(newPage: number, per_page: number = 10) {
 
   const { data, status } = res
 
-  getStatusMessage(status, getIssueListData.name)
+  if (status !== 200) throw Error(getStatusMessage(status, getIssueListData.name))
 
   if (data.length === 0) return null
 

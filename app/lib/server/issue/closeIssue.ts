@@ -25,5 +25,5 @@ export async function closeIssue(postNumber: number) {
     redirect("/issue-list")
   }
 
-  getStatusMessage(status, closeIssue.name)
+  throw Error(getStatusMessage(status, closeIssue.name))
 }

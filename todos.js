@@ -12,5 +12,10 @@ WIP: add close issue confirm
 
 WIP: add number in issue-list
 
-WIP: deal with switch status code
+//WIP: deal with switch status code
+
+WIP: middleware setting for role
+
+//! check post issue title body limitation!!
+! check sending request too soon
 */
