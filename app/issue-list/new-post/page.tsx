@@ -6,7 +6,7 @@ const page = () => {
   return (
     <div className="container">
       <div className="flex justify-center text-3xl">New issue</div>
-      <IssuePostForm action={postIssue} />
+      <IssuePostForm postIssue={postIssue} />
     </div>
   )
 }

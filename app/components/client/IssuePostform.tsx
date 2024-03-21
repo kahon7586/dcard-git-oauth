@@ -5,7 +5,7 @@ import React from "react"
 import { useFormState, useFormStatus } from "react-dom"
 
 interface IssuePostFormProp {
-  action: (prevState: FormState | null, formData: FormData) => Promise<FormState>
+  postIssue: (prevState: FormState | null, formData: FormData) => Promise<FormState>
 }
 
 export interface FormState {
@@ -25,8 +25,8 @@ function PostBtn() {
   )
 }
 
-const IssuePostForm = ({ action }: IssuePostFormProp) => {
-  const [formState, submitAction] = useFormState(action, null)
+const IssuePostForm = ({ postIssue }: IssuePostFormProp) => {
+  const [formState, submitAction] = useFormState(postIssue, null)
 
   return (
     <form action={submitAction}>
