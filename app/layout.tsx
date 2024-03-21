@@ -22,7 +22,8 @@ export default async function RootLayout({
       lang="en"
       suppressHydrationWarning>
       <body>
-        <header className="flex px-6 py-2 font-bold">
+        <header className="flex px-6 py-2 font-bold gap-6 text-xl">
+          <Link href="/">Home</Link>
           <Link href="/issue-list">Issue List</Link>
         </header>
         {children}
