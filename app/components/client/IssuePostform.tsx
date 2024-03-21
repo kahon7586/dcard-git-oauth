@@ -3,9 +3,13 @@
 import Link from "next/link"
 import React from "react"
 import { useFormState, useFormStatus } from "react-dom"
+import MarkdownTextArea from "./MarkdownTextArea"
 
 interface IssuePostFormProp {
-  postIssue: (prevState: FormState | null, formData: FormData) => Promise<FormState>
+  actions: {
+    postIssue: (prevState: FormState | null, formData: FormData) => Promise<FormState>
+    markdownParser: (markdownStr: string) => Promise<string>
+  }
 }
 
 export interface FormState {
@@ -25,20 +29,20 @@ function PostBtn() {
   )
 }
 
-const IssuePostForm = ({ postIssue }: IssuePostFormProp) => {
+const IssuePostForm = ({ actions }: IssuePostFormProp) => {
+  const { postIssue, markdownParser } = actions
   const [formState, submitAction] = useFormState(postIssue, null)
 
   return (
     <form action={submitAction}>
-      {
-        formState?.errorMessage ? (
-          <div className="flex w-fit px-2 py-1 border text-red-500 bg-red-100 border-red-500 rounded-lg">
-            {formState.errorMessage}
-          </div>
-        ) : null
-        // error display
-      }
+      {/* <--- error display ---> */}
+      {formState?.errorMessage ? (
+        <div className="flex w-fit px-2 py-1 border text-red-500 bg-red-100 border-red-500 rounded-lg">
+          {formState.errorMessage}
+        </div>
+      ) : null}
 
+      {/* <--- form body ---> */}
       <section className="font-bold text-xl gap-4 flex my-6">
         <label htmlFor="title">Title</label>
         <input
@@ -49,12 +53,8 @@ const IssuePostForm = ({ postIssue }: IssuePostFormProp) => {
         />
       </section>
 
-      <section>
-        <label htmlFor="body">Body</label>
-        <textarea
-          className="block text-gray-700 text-sm font-bold resize-none w-full h-[400px] px-2"
-          name="body"
-        />
+      <section className="flex flex-col font-bold text-xl gap-2">
+        <MarkdownTextArea markdownParser={markdownParser} />
       </section>
 
       <section className="flex gap-2 justify-center mt-6">
