@@ -2,10 +2,11 @@
 
 import { useAppendFormdata } from "@/app/hook/useAppendFormdata"
 import { markdownParser } from "@/app/lib/server/markdown/markdownParser"
-import Link from "next/link"
 import React, { useRef } from "react"
 import { useFormState, useFormStatus } from "react-dom"
 import MarkdownTextArea from "./MarkdownTextArea"
+import LinkButton from "../LinkButton"
+import Button from "../Button"
 
 interface IssueEditFormProp {
   editIssue: (prevState: FormState | null, formData: FormData) => Promise<FormState>
@@ -27,11 +28,11 @@ function SubmitBtn() {
   const { pending } = useFormStatus()
 
   return (
-    <button
+    <Button
       className="border rounded-md px-2 py-1 bg-blue-400 hover:bg-blue-300 disabled:bg-gray-400"
       disabled={pending}>
       {pending ? "Sending..." : "Submit"}
-    </button>
+    </Button>
   )
 }
 
@@ -54,7 +55,7 @@ const IssueEditForm = ({ editIssue, postNumber, content }: IssueEditFormProp) =>
       <section className="font-bold text-xl gap-4 flex my-6">
         <label htmlFor="title">Title</label>
         <input
-          className="block px-2 text-xl text-gray-700 w-full max-w-[400px]"
+          className="block px-2 text-xl text-primary w-full max-w-[400px]"
           type="text"
           name="title"
           defaultValue={content.title}
@@ -71,11 +72,11 @@ const IssueEditForm = ({ editIssue, postNumber, content }: IssueEditFormProp) =>
 
       {/* <--- Footer ---> */}
       <section className="flex gap-2 justify-center mt-6">
-        <Link
-          className="border rounded-md px-2 py-1 bg-slate-300 hover:bg-slate-200"
-          href={`/issue-list/issue/${postNumber}`}>
+        <LinkButton
+          href={`/issue-list/issue/${postNumber}`}
+          className="border-none">
           Cancel
-        </Link>
+        </LinkButton>
         <SubmitBtn />
       </section>
     </form>

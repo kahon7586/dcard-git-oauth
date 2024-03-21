@@ -4,6 +4,8 @@ import Link from "next/link"
 import React from "react"
 import { useFormState, useFormStatus } from "react-dom"
 import MarkdownTextArea from "./MarkdownTextArea"
+import LinkButton from "../LinkButton"
+import Button from "../Button"
 
 interface IssuePostFormProp {
   actions: {
@@ -21,11 +23,11 @@ function PostBtn() {
   const { pending } = useFormStatus()
 
   return (
-    <button
+    <Button
       className="border rounded-md px-2 py-1 bg-blue-400 hover:bg-blue-300 disabled:bg-gray-400"
       disabled={pending}>
       {pending ? "Sending..." : "Submit"}
-    </button>
+    </Button>
   )
 }
 
@@ -46,7 +48,7 @@ const IssuePostForm = ({ actions }: IssuePostFormProp) => {
       <section className="font-bold text-xl gap-4 flex my-6">
         <label htmlFor="title">Title</label>
         <input
-          className="block px-2 text-xl text-gray-700 w-full max-w-[400px]"
+          className="block px-2 text-xl text-primary w-full max-w-[400px]"
           type="text"
           name="title"
           placeholder="Title..."
@@ -58,11 +60,11 @@ const IssuePostForm = ({ actions }: IssuePostFormProp) => {
       </section>
 
       <section className="flex gap-2 justify-center mt-6">
-        <Link
-          className="border rounded-md px-2 py-1 bg-slate-300 hover:bg-slate-200"
-          href={`/issue-list`}>
+        <LinkButton
+          href={`/issue-list`}
+          className="border-none">
           Cancel
-        </Link>
+        </LinkButton>
         <PostBtn />
       </section>
     </form>

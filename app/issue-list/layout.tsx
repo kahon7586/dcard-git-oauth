@@ -6,11 +6,11 @@ interface LayoutProps {
 
 const layout = ({ children }: LayoutProps) => {
   return (
-    <>
-      <main className="absolute-center mt-4">
-        <div className="container flex justify-center bg-slate-400 px-4 py-2">{children}</div>
-      </main>
-    </>
+    <main className="absolute-center mt-4">
+      <div className="container flex justify-center bg-primary p-4 rounded-lg border border-secondary shadow-md">
+        {children}
+      </div>
+    </main>
   )
 }
 

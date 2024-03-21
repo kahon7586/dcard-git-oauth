@@ -1,5 +1,6 @@
 import React, { HTMLAttributes } from "react"
 import { twMerge } from "tailwind-merge"
+import Button from "./Button"
 
 interface SignOutBtnProps extends HTMLAttributes<HTMLButtonElement> {
   action: (arg?: unknown) => unknown
@@ -13,13 +14,13 @@ const SignOutBtn = ({ action, className, ...props }: SignOutBtnProps) => {
         "use server"
         await action()
       }}>
-      <button
-        className={twMerge("border rounded-md py-1 px-2", className)}
+      <Button
+        className={className}
         type="submit"
         {...props}>
         {" "}
         Sign Out
-      </button>
+      </Button>
     </form>
   )
 }

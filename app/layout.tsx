@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import "./globals.css"
 import { auth, signOut } from "@/auth"
 import Link from "next/link"
+import Button from "./components/Button"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,13 +22,13 @@ export default async function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning>
-      <body>
+      <body className="min-h-screen flex flex-col">
         <header className="flex px-6 py-2 font-bold gap-6 text-xl">
           <Link href="/">Home</Link>
           <Link href="/issue-list">Issue List</Link>
         </header>
         {children}
-        <div className="flex justify-center items-center gap-4 mt-4">
+        <footer className="flex flex-grow justify-center items-center gap-4 py-4">
           {session ? `Name: ${userName}, Role: ${userRole}` : null}
           {session ? (
             <form
@@ -35,11 +36,11 @@ export default async function RootLayout({
                 "use server"
                 await signOut()
               }}>
-              <button
+              <Button
                 className="border rounded-md py-1 px-2"
                 type="submit">
                 Sign Out
-              </button>
+              </Button>
             </form>
           ) : (
             <Link
@@ -48,7 +49,7 @@ export default async function RootLayout({
               Login
             </Link>
           )}
-        </div>
+        </footer>
       </body>
     </html>
   )

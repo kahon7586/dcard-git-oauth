@@ -32,7 +32,7 @@ const SpeechBubble = ({ data }: SpeechBubbleProps) => {
               alt={`${login} avatar`}
             />
           </div>
-          <div className="text-gray-500">{getTimeAgoLabel(created_at, updated_at)}</div>
+          <div className="text-primary">{getTimeAgoLabel(created_at, updated_at)}</div>
         </div>
 
         <div

@@ -2,6 +2,7 @@
 
 import React, { TextareaHTMLAttributes, useRef, useState } from "react"
 import { twMerge } from "tailwind-merge"
+import Button from "../Button"
 
 interface MarkdownTextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   markdownParser: (markdownStr: string) => Promise<string>
@@ -42,27 +43,27 @@ const MarkdownTextArea = ({ markdownParser, defaultValue = "", name, className, 
     <>
       <div className="flex w-fit gap-2 items-center">
         <label htmlFor="body">Body</label>
-        <button
-          className="border px-2 rounded-md bg-slate-300 hover:bg-slate-200 disabled:bg-gray-300 disabled:cursor-wait disabled:text-gray-500"
+        <Button
+          className="border px-2 rounded-md py-1 border-secondary hover:bg-third-hover disabled:bg-gray-300 disabled:cursor-wait disabled:text-primary"
           onClick={handleClickPreview}
           type="button"
           disabled={isLoading}>
           {isLoading ? "loading..." : isPreview ? "edit" : "preview"}
-        </button>
+        </Button>
       </div>
 
       {/* <--- Markdown preview ---> */}
       <div
         className={`${
           isPreview ? "block" : "hidden"
-        } markdown-body text-gray-700 text-sm font-bold resize-none w-full px-2 py-1`}
+        } markdown-body text-primary text-sm font-bold resize-none w-full px-2 py-1`}
         dangerouslySetInnerHTML={{ __html: previewHTML }}></div>
 
       {/* <--- Markdown editor ---> */}
 
       <textarea
         className={twMerge(
-          `${isPreview ? "hidden" : "block"} text-gray-700 text-sm font-bold resize-none w-full h-[400px] px-2 py-1`,
+          `${isPreview ? "hidden" : "block"} text-primary text-sm font-bold resize-none w-full h-[400px] px-2 py-1`,
           className
         )}
         name={name}
