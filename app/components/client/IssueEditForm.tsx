@@ -40,8 +40,8 @@ const IssueEditForm = ({ editIssue, postNumber, content }: IssueEditFormProp) =>
   useAppendFormdata(formRef, { number: postNumber }) //[[appendNumber]]
 
   const [isPreview, setIsPreview] = useState(false)
-  const [previewHTML, setPreviewHTML] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [previewHTML, setPreviewHTML] = useState("")
 
   const editorRef = useRef<HTMLTextAreaElement | null>(null)
 
@@ -78,6 +78,7 @@ const IssueEditForm = ({ editIssue, postNumber, content }: IssueEditFormProp) =>
         </div>
       ) : null}
 
+      {/* <--- Title ---> */}
       <section className="font-bold text-xl gap-4 flex my-6">
         <label htmlFor="title">Title</label>
         <input
@@ -88,6 +89,7 @@ const IssueEditForm = ({ editIssue, postNumber, content }: IssueEditFormProp) =>
         />
       </section>
 
+      {/* <--- Body ---> */}
       <section className="flex flex-col font-bold text-xl gap-2">
         <div className="flex w-fit gap-2 items-center">
           <label htmlFor="body">Body</label>
@@ -118,6 +120,7 @@ const IssueEditForm = ({ editIssue, postNumber, content }: IssueEditFormProp) =>
         />
       </section>
 
+      {/* <--- Footer ---> */}
       <section className="flex gap-2 justify-center mt-6">
         <Link
           className="border rounded-md px-2 py-1 bg-slate-300 hover:bg-slate-200"
