@@ -6,7 +6,7 @@ https://overreacted.io/a-complete-guide-to-useeffect/
 // WIP: length test for title and body
 
 // WIP: markdown preview
-WIP: add preview to post issue
+// WIP: add preview to post issue
 
 WIP: add close issue confirm
 
@@ -18,4 +18,6 @@ WIP: middleware setting for role
 
 //! check post issue title body limitation!!
 ! check sending request too soon
+* https://actions-cool.github.io/octokit-rest/guide/09_throttling
+
 */
