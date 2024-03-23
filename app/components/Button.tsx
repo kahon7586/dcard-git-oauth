@@ -9,7 +9,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = ({ className, children, ...props }: ButtonProps) => {
   return (
     <button
-      className={twMerge("hover:bg-primary-hover border border-zinc-300 rounded-md px-2 py-1", className)}
+      className={twMerge(" hover:bg-primary-hover border border-zinc-300 rounded-md px-2 py-1", className)}
       {...props}>
       {children}
     </button>

@@ -37,7 +37,7 @@ body {
 }
 
 .markdown-body {
-  @apply bg-secondary text-black p-[15px] md:p-[30px] border rounded-lg min-h-[3rem];
+  @apply p-[15px] md:p-[30px] border rounded-lg min-h-[3rem];
 }
 
 .markdown-body {
@@ -52,15 +52,6 @@ body {
   ul,
   ol {
     @apply !pl-[1em];
-  }
-
-  pre {
-    @apply !bg-primary bg-secondary bg-third bg-third-hover;
-  }
-
-  code,
-  blockquote {
-    @apply text-primary bg-primary-hover;
   }
 
   blockquote {

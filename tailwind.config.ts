@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss"
 
 const config: Config = {
+  darkMode: "selector",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,6 +11,10 @@ const config: Config = {
     extend: {
       textColor: {
         primary: "#333333",
+        secondary: "#595959",
+        "primary-d": "#f1f7ff",
+        "secondary-d": "#a8acb2",
+        code: "#f1f7ff",
       },
       borderColor: {
         secondary: "#999999",
@@ -20,6 +25,12 @@ const config: Config = {
         secondary: "#F5F5F5", // body bg
         third: "#999999",
         "third-hover": " #b3b3b3",
+
+        "primary-d": "#0d1117", // component bg
+        "primary-hover-d": "#222d3d",
+        "secondary-d": "#010409", // body bg
+        "third-d": "#161b22",
+        "third-hover-d": " #2e3948",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
