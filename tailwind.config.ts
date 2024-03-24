@@ -20,14 +20,14 @@ const config: Config = {
         "secondary-d": "#a8acb2",
       },
       borderColor: {
-        primary: "#CCCCCC",
-        "primary-d": "#0d1117",
+        primary: "#505050",
+        "primary-d": "#e5e5e5",
         secondary: "#999999",
         bubble: "#F5F5F5",
       },
       backgroundColor: {
-        primary: "#CCCCCC", // component bg
-        "primary-hover": "#e5e5e5",
+        primary: "#dfdfdf", // component bg
+        "primary-hover": "#ebebeb",
         secondary: "#F5F5F5", // body bg
         third: "#999999",
         "third-hover": " #b3b3b3",

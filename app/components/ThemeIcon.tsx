@@ -10,7 +10,7 @@ const ThemeIcon = ({ Icon, className, ...props }: ThemeIconProps) => {
   return (
     <div className="p-1 hover:bg-primary-hover dark:bg-primary-d hover:dark:bg-primary-hover-d rounded-full">
       <Icon
-        className={twMerge("size-6 flex-shrink-0 flex-grow-0 cursor-pointer", className)}
+        className={twMerge("h-full flex-shrink-0 flex-grow-0 cursor-pointer", className)}
         {...props}
       />
     </div>
