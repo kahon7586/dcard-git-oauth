@@ -5,6 +5,8 @@ import Link from "next/link"
 import Button from "./components/Button"
 import dynamic from "next/dynamic"
 import { cookies } from "next/headers"
+import Spinner from "./components/Spinner"
+import LinkButton from "./components/LinkButton"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +22,10 @@ export default async function RootLayout({
   const userName = session?.user?.name
   const userRole = session?.user?.role
 
-  const ThemeToggler = dynamic(() => import("./components/client/ThemeToggler"), { ssr: false })
+  const ThemeToggler = dynamic(() => import("./components/client/ThemeToggler"), {
+    ssr: false,
+    loading: () => <Spinner className="fill-black" />,
+  })
   const theme = cookies().get("theme")?.value
 
   return (
@@ -28,37 +33,47 @@ export default async function RootLayout({
       lang="en"
       suppressHydrationWarning
       className={theme === "dark" ? "dark" : ""}>
-      <body className="min-h-screen flex flex-col bg-secondary dark:bg-secondary-d dark:text-primary-d">
+      <body className="min-h-screen flex flex-col bg-secondary dark:bg-secondary-d dark:text-primary-d transition-colors duration-500">
         <header className="flex px-6 py-2 font-bold gap-6 text-xl justify-between items-center shadow-md shadow-primary-hover dark:shadow-md dark:shadow-primary-hover-d">
           <div className="flex gap-6">
             <Link href="/">Home</Link>
             <Link href="/issue-list">Issue List</Link>
+            <Link href="/test-loading">Loading</Link>
+            <Link href="/test-error">Error</Link>
           </div>
-          <div>
-            <ThemeToggler />
-          </div>
+
+          <ThemeToggler />
         </header>
         {children}
-        <footer className="flex flex-grow justify-center items-center gap-4 py-4">
-          {session ? `Name: ${userName}, Role: ${userRole}` : null}
+        <footer className="flex flex-grow-1 [&:nth-child(2)]:flex-grow justify-center items-center gap-4 py-4">
           {session ? (
             <form
               action={async () => {
                 "use server"
                 await signOut()
               }}>
-              <Button
-                className="border rounded-md py-1 px-2"
-                type="submit">
-                Sign Out
-              </Button>
+              <div className="flex flex-col gap-2 items-center">
+                {`Name: ${userName}, Role: ${userRole}`}
+                <div>
+                  <Button
+                    className="border rounded-md py-1 px-2"
+                    type="submit">
+                    Sign Out
+                  </Button>
+                </div>
+              </div>
             </form>
           ) : (
-            <Link
-              className="border rounded-md py-1 px-2"
-              href="/">
-              Login
-            </Link>
+            <div className="flex flex-col gap-2 items-center">
+              Name: Anonymous, Role: "user"
+              <div>
+                <LinkButton
+                  className="border rounded-md py-1 px-2"
+                  href="/">
+                  Login
+                </LinkButton>
+              </div>
+            </div>
           )}
         </footer>
       </body>

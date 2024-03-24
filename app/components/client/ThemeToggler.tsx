@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import ThemeIcon from "../ThemeIcon"
 import { IoSunny } from "react-icons/io5"
 import { IoMoon } from "react-icons/io5"
