@@ -14,10 +14,12 @@ const config: Config = {
         secondary: "#595959",
         "primary-d": "#f1f7ff",
         "secondary-d": "#a8acb2",
-        code: "#f1f7ff",
       },
       borderColor: {
+        primary: "#CCCCCC",
+        "primary-d": "#0d1117",
         secondary: "#999999",
+        bubble: "#F5F5F5",
       },
       backgroundColor: {
         primary: "#CCCCCC", // component bg

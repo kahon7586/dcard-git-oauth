@@ -3,6 +3,8 @@ import "./globals.css"
 import { auth, signOut } from "@/auth"
 import Link from "next/link"
 import Button from "./components/Button"
+import dynamic from "next/dynamic"
+import { cookies } from "next/headers"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,14 +20,23 @@ export default async function RootLayout({
   const userName = session?.user?.name
   const userRole = session?.user?.role
 
+  const ThemeToggler = dynamic(() => import("./components/client/ThemeToggler"), { ssr: false })
+  const theme = cookies().get("theme")?.value
+
   return (
     <html
       lang="en"
-      suppressHydrationWarning>
-      <body className="min-h-screen flex flex-col ">
-        <header className="flex px-6 py-2 font-bold gap-6 text-xl">
-          <Link href="/">Home</Link>
-          <Link href="/issue-list">Issue List</Link>
+      suppressHydrationWarning
+      className={theme === "dark" ? "dark" : ""}>
+      <body className="min-h-screen flex flex-col bg-secondary dark:bg-secondary-d dark:text-primary-d">
+        <header className="flex px-6 py-2 font-bold gap-6 text-xl justify-between">
+          <div>
+            <Link href="/">Home</Link>
+            <Link href="/issue-list">Issue List</Link>
+          </div>
+          <div>
+            <ThemeToggler />
+          </div>
         </header>
         {children}
         <footer className="flex flex-grow justify-center items-center gap-4 py-4">

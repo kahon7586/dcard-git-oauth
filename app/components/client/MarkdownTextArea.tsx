@@ -44,7 +44,7 @@ const MarkdownTextArea = ({ markdownParser, defaultValue = "", name, className, 
       <div className="flex w-fit gap-2 items-center">
         <label htmlFor="body">Body</label>
         <Button
-          className="border px-2 rounded-md py-1 border-secondary hover:bg-third-hover disabled:bg-gray-300 disabled:cursor-wait disabled:text-primary"
+          className="border px-2 rounded-md py-1 border-secondary hover:bg-third-hover dark:hover:bg-third-hover-d disabled:bg-gray-300 disabled:cursor-wait disabled:text-primary dark:disabled:text-primary-d"
           onClick={handleClickPreview}
           type="button"
           disabled={isLoading}>
@@ -53,17 +53,20 @@ const MarkdownTextArea = ({ markdownParser, defaultValue = "", name, className, 
       </div>
 
       {/* <--- Markdown preview ---> */}
+
       <div
         className={`${
           isPreview ? "block" : "hidden"
-        } markdown-body text-primary text-sm font-bold resize-none w-full px-2 py-1`}
+        } markdown-body text-primary dark:text-primary-d text-sm font-bold resize-none w-full px-2 py-1`}
         dangerouslySetInnerHTML={{ __html: previewHTML }}></div>
 
       {/* <--- Markdown editor ---> */}
 
       <textarea
         className={twMerge(
-          `${isPreview ? "hidden" : "block"} text-primary text-sm font-bold resize-none w-full h-[400px] px-2 py-1`,
+          `${
+            isPreview ? "hidden" : "block"
+          } text-primary dark:text-primary-d bg-primary dark:bg-primary-d border-white border text-sm font-bold resize-none w-full h-[400px] px-2 py-1`,
           className
         )}
         name={name}

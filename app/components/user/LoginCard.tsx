@@ -18,9 +18,9 @@ const LoginCard = ({ role, action }: LoginCard) => {
     <form
       className="min-w-[400px] p-6 flex justify-center flex-col items-center bg-white border border-gray-200 rounded-lg shadow"
       action={action}>
-      <h5 className="mb-2 text-2xl font-bold tracking-tight text-primary">{role}</h5>
+      <h5 className="mb-2 text-2xl font-bold tracking-tight text-primary dark:text-primary-d">{role}</h5>
 
-      <p className="mb-3 font-normal text-primary dark:text-primary">{ROLE_INFO[role]}</p>
+      <p className="mb-3 font-normal text-primary dark:text-primary-d ">{ROLE_INFO[role]}</p>
       <Button
         className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
         type="submit">

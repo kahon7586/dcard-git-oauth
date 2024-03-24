@@ -48,7 +48,7 @@ const IssuePostForm = ({ actions }: IssuePostFormProp) => {
       <section className="font-bold text-xl gap-4 flex my-6">
         <label htmlFor="title">Title</label>
         <input
-          className="block px-2 text-xl text-primary w-full max-w-[400px]"
+          className="block px-2 text-xl text-primary dark:text-primary-d rounded-sm bg-primary dark:bg-primary-d border-white border w-full max-w-[400px]"
           type="text"
           name="title"
           placeholder="Title..."

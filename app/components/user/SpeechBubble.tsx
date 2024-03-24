@@ -22,8 +22,8 @@ const SpeechBubble = ({ data }: SpeechBubbleProps) => {
         alt={`${login} avatar`}
       />
 
-      <div className="speech-bubble markdown-body flex-col md:flex">
-        <div className="flex ">
+      <div className="speech-bubble  flex-col md:flex">
+        <div className="flex mt-2">
           <div className="after:content-[':'] font-bold flex mr-2">
             {login}
             <Avatar
@@ -32,11 +32,11 @@ const SpeechBubble = ({ data }: SpeechBubbleProps) => {
               alt={`${login} avatar`}
             />
           </div>
-          <div className="text-primary">{getTimeAgoLabel(created_at, updated_at)}</div>
+          <div className="text-primary dark:text-primary-d">{getTimeAgoLabel(created_at, updated_at)}</div>
         </div>
 
         <div
-          className="first:mt-4"
+          className="first:mt-4 markdown-body border-none"
           dangerouslySetInnerHTML={{ __html: body ?? "" }}></div>
       </div>
     </div>

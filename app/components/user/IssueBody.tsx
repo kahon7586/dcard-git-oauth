@@ -14,6 +14,4 @@ const IssueBody = ({ innerHTML }: IssueBodyProps) => {
   )
 }
 
-//test // test2
-
 export default IssueBody

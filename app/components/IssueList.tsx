@@ -37,11 +37,11 @@ const IssueList = ({ firstPageData, action: getIssueNodeList }: IssueListProps) 
 
   return (
     <div
-      className="container flex flex-col bg-primary max-h-[300px] overflow-auto"
+      className="container flex flex-col bg-primary dark:bg-primary-d max-h-[300px] overflow-auto"
       ref={issueListRef}>
       {isBottom && !isNoMoreData ? (
         <div className="sticky top-[50%] flex justify-center items-center my-4 cursor-default ">
-          <Spinner />
+          <Spinner className=" dark:fill-white" />
           Loading...
         </div>
       ) : null}
