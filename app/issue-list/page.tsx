@@ -30,7 +30,7 @@ const page = async () => {
   return (
     <div className="flex flex-col gap-2 items-end w-full px-4">
       <div className="flex justify-between items-center w-full">
-        <p className="text-[1.8rem] font-bold">IssueList</p>
+        <p className="text-[1.8rem] font-bold">Issue-List</p>
         <AdminOnly>
           <LinkButton
             className="w-fit border-zinc-500"

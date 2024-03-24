@@ -19,7 +19,7 @@ const IssueItem = async ({ issueItem }: IssueItemProps) => {
   return (
     <Link
       href={`/issue-list/issue/${number}`}
-      className="px-4 py-2 mr-2 hover:bg-primary dark:hover:bg-primary-hover-d hover:cursor-pointer hover:border-l-4 hover:border-secondary">
+      className="px-4 py-2 mr-2 hover:bg-primary-hover dark:hover:bg-primary-hover-d hover:cursor-pointer hover:border-l-4 hover:border-secondary">
       <div className="flex justify-between items-center">
         <div className="flex gap-2 items-baseline text-xl w-screen overflow-hidden">
           <div className="text-primary dark:text-primary-d before:content-['('] after:content-[')']">{state}</div>

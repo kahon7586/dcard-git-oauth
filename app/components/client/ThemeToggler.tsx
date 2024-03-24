@@ -1,10 +1,24 @@
 "use client"
 
 import React, { useEffect, useState } from "react"
+import ThemeIcon from "../ThemeIcon"
+import { IoSunny } from "react-icons/io5"
+import { IoMoon } from "react-icons/io5"
+
+function getHtml() {
+  return document.getElementsByTagName("html")[0]
+}
+
+// If in dark mode, just put "dark" in html class list; else, remove "dark"
+// Note that when using light theme, there's no "light" in html class list
 
 const ThemeToggler = () => {
   const [theme, setTheme] = useState<"dark" | "light">(() => {
-    const html = document.getElementsByTagName("html")[0]
+    if (document.cookie.includes(`theme=light`)) return "light"
+    if (document.cookie.includes(`theme=dark`)) return "dark"
+    // look for theme in cookie
+
+    const html = getHtml()
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       html.classList.add("dark")
       document.cookie = `theme=dark`
@@ -15,15 +29,8 @@ const ThemeToggler = () => {
     return "light"
   })
 
-  useEffect(() => {
-    const html = document.getElementsByTagName("html")[0]
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      html.classList.add("dark")
-    }
-  }, [])
-
   function handleToggle() {
-    const html = document.getElementsByTagName("html")[0]
+    const html = getHtml()
 
     setTheme((prev) => {
       if (prev === "dark") {
@@ -38,7 +45,23 @@ const ThemeToggler = () => {
     })
   }
 
-  return <div onClick={handleToggle}>{theme === "light" ? "light" : "dark"}</div>
+  return (
+    <div onClick={handleToggle}>
+      {theme === "light" ? (
+        <ThemeIcon
+          Icon={IoSunny}
+          className="fill-amber-300"
+          title="light mode"
+        />
+      ) : (
+        <ThemeIcon
+          Icon={IoMoon}
+          className="fill-zinc-400"
+          title="dark mode"
+        />
+      )}
+    </div>
+  )
 }
 
 export default ThemeToggler

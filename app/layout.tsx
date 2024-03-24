@@ -29,8 +29,8 @@ export default async function RootLayout({
       suppressHydrationWarning
       className={theme === "dark" ? "dark" : ""}>
       <body className="min-h-screen flex flex-col bg-secondary dark:bg-secondary-d dark:text-primary-d">
-        <header className="flex px-6 py-2 font-bold gap-6 text-xl justify-between">
-          <div>
+        <header className="flex px-6 py-2 font-bold gap-6 text-xl justify-between items-center shadow-md shadow-primary-hover dark:shadow-md dark:shadow-primary-hover-d">
+          <div className="flex gap-6">
             <Link href="/">Home</Link>
             <Link href="/issue-list">Issue List</Link>
           </div>
