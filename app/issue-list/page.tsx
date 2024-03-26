@@ -33,7 +33,7 @@ const page = async () => {
         <p className="text-[1.8rem] font-bold">Issue-List</p>
         <AdminOnly>
           <LinkButton
-            className="w-fit border-zinc-500"
+            className="w-fit"
             href="/issue-list/new-post">
             Post
           </LinkButton>

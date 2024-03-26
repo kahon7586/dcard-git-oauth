@@ -50,7 +50,6 @@ const IssueTitleAndBody = async ({ postNumber }: IssueTitleAndBodyProps) => {
           <div className="float-right px-4 py-2 flex right-3 top-2 gap-2">
             <LinkButton href={`/issue-list/edit/${postNumber}`}>Edit</LinkButton>
             <DeleteBtn
-              className="hover:bg-primary dark:hover:bg-primary-hover-d border border-zinc-300 rounded-md px-2 py-1 "
               action={closeIssue}
               postNumber={postNumber}
             />
