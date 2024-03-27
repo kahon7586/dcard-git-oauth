@@ -1,22 +1,19 @@
-import React from "react"
-import { getIssueComments } from "../lib/server/comments/getIssueComments"
-import SpeechBubble from "./user/SpeechBubble"
+import React from "react";
+import { getIssueComments } from "../lib/server/comments/getIssueComments";
+import SpeechBubble from "./user/SpeechBubble";
 
 interface IssueCommentsProps {
-  postNumber: number
+  postNumber: number;
 }
 
 const IssueComments = async ({ postNumber }: IssueCommentsProps) => {
-  const dataList = await getIssueComments(postNumber)
+  const dataList = await getIssueComments(postNumber);
 
-  if (dataList === null) return null
+  if (dataList === null) return null;
 
   return dataList.map((data) => (
-    <SpeechBubble
-      data={data}
-      key={data.content.id}
-    />
-  ))
-}
+    <SpeechBubble data={data} key={data.content.id} />
+  ));
+};
 
-export default IssueComments
+export default IssueComments;

@@ -1,10 +1,10 @@
-import React from "react"
-import { wait } from "../lib/common/wait"
+import React from "react";
+import { wait } from "../lib/common/wait";
 
 const page = async () => {
-  await wait(2000 * 1000 * 99)
+  await wait(2000 * 1000 * 99);
 
-  return <div>test page</div>
-}
+  return <div>test page</div>;
+};
 
-export default page
+export default page;

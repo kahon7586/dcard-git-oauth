@@ -1,36 +1,33 @@
-"use client"
+"use client";
 
-import { HTMLAttributes, useState } from "react"
-import CommonBtn from "./Button"
+import { HTMLAttributes, useState } from "react";
+import CommonBtn from "./Button";
 
 interface DeleteBtnProps extends HTMLAttributes<HTMLButtonElement> {
-  action: (postNumber: number) => unknown
-  postNumber: number
+  action: (postNumber: number) => unknown;
+  postNumber: number;
 }
 
 const DeleteBtn = ({ action, postNumber, ...props }: DeleteBtnProps) => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleClickDelete() {
-    setIsLoading(true)
+    setIsLoading(true);
 
     try {
-      await action(postNumber)
+      await action(postNumber);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
 
   return (
-    <CommonBtn
-      onClick={handleClickDelete}
-      {...props}
-      disabled={isLoading}>
+    <CommonBtn onClick={handleClickDelete} {...props} disabled={isLoading}>
       Delete
     </CommonBtn>
-  )
-}
+  );
+};
 
-export default DeleteBtn
+export default DeleteBtn;

@@ -1,23 +1,24 @@
-import Link, { LinkProps } from "next/link"
-import React, { ReactNode } from "react"
-import { twMerge } from "tailwind-merge"
+import Link, { LinkProps } from "next/link";
+import React, { ReactNode } from "react";
+import { twMerge } from "tailwind-merge";
 
 interface LinkButtonProps extends LinkProps {
-  className?: string
-  children: ReactNode
+  className?: string;
+  children: ReactNode;
 }
 
 const LinkButton = ({ className, children, ...props }: LinkButtonProps) => {
   return (
     <Link
       className={twMerge(
-        "hover:bg-primary-hover dark:hover:bg-primary-hover-d border border-primary dark:border-primary-d rounded-md px-2 py-1",
-        className
+        "rounded-md border border-primary px-2 py-1 hover:bg-primary-hover dark:border-primary-d dark:hover:bg-primary-hover-d",
+        className,
       )}
-      {...props}>
+      {...props}
+    >
       {children}
     </Link>
-  )
-}
+  );
+};
 
-export default LinkButton
+export default LinkButton;

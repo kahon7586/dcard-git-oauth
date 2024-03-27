@@ -1,16 +1,19 @@
-import dynamic from "next/dynamic"
-import Link from "next/link"
-import React from "react"
-import Spinner from "./Spinner"
+import dynamic from "next/dynamic";
+import Link from "next/link";
+import React from "react";
+import Spinner from "./Spinner";
 
 const Header = () => {
-  const ThemeToggler = dynamic(() => import("@/app/components/client/ThemeToggler"), {
-    ssr: false,
-    loading: () => <Spinner className="fill-black" />,
-  })
+  const ThemeToggler = dynamic(
+    () => import("@/app/components/client/ThemeToggler"),
+    {
+      ssr: false,
+      loading: () => <Spinner className="fill-black" />,
+    },
+  );
 
   return (
-    <header className="flex px-6 py-2 font-bold gap-6 text-xl justify-between items-center shadow-md shadow-primary-hover dark:shadow-md dark:shadow-primary-hover-d">
+    <header className="flex items-center justify-between gap-6 px-6 py-2 text-xl font-bold shadow-md shadow-primary-hover dark:shadow-md dark:shadow-primary-hover-d">
       <div className="flex gap-6">
         <Link href="/">Home</Link>
         <Link href="/issue-list">Issue List</Link>
@@ -20,7 +23,7 @@ const Header = () => {
 
       <ThemeToggler />
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

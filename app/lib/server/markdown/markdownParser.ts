@@ -1,7 +1,7 @@
-"use server"
+"use server";
 
-import xss from "xss"
-import { getOctokit } from "../auth/getOctokit"
+import xss from "xss";
+import { getOctokit } from "../auth/getOctokit";
 
 /*
 // Currently innerHTML is being called from github rest api.
@@ -14,21 +14,21 @@ import { getOctokit } from "../auth/getOctokit"
  */
 
 export async function markdownParser(markdownStr: string) {
-  const octokit = await getOctokit()
+  const octokit = await getOctokit();
 
   const res = await octokit.request("POST /markdown", {
     text: markdownStr,
     headers: {
       "X-GitHub-Api-Version": "2022-11-28",
     },
-  })
+  });
 
-  const unsanitizedInnerHTML: string = res.data
+  const unsanitizedInnerHTML: string = res.data;
 
   //// const sanitizedInnerHTML = xssSanitizer(unsanitizedInnerHTML)
   // * Use xssSanitizer will destory some some syntax, like: task list
 
-  return unsanitizedInnerHTML
+  return unsanitizedInnerHTML;
 }
 
 // function xssSanitizer(unsanitizedString: string) {

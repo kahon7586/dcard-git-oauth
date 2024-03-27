@@ -1,9 +1,9 @@
-import React from "react"
+import React from "react";
 
 const page = () => {
-  throw Error("Error test")
+  throw Error("Error test");
 
-  return <div></div>
-}
+  return <div></div>;
+};
 
-export default page
+export default page;

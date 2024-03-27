@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { usePathname } from "next/navigation"
+import { usePathname } from "next/navigation";
 
 const usePrevPathName = () => {
-  const pathSegment = usePathname().split("/")
-  pathSegment.pop()
+  const pathSegment = usePathname().split("/");
+  pathSegment.pop();
 
-  return pathSegment.join("/")
-}
+  return pathSegment.join("/");
+};
 
-export default usePrevPathName
+export default usePrevPathName;

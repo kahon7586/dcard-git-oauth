@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
 const LogAtClient = ({ target }: { target?: unknown }) => {
-  console.log(target)
+  console.log(target);
 
-  return null
-}
+  return null;
+};
 
-export default LogAtClient
+export default LogAtClient;

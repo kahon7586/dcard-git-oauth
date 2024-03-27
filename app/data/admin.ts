@@ -1,1 +1,1 @@
-export const adminList = ["kahon7586"]
+export const adminList = ["kahon7586"];
