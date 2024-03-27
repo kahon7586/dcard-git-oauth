@@ -9,7 +9,13 @@ interface MarkdownTextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaEleme
   defaultValue?: string | number | readonly string[] | undefined
 }
 
-const MarkdownTextArea = ({ markdownParser, defaultValue = "", name, className, ...props }: MarkdownTextAreaProps) => {
+const MarkdownTextArea = ({
+  markdownParser,
+  defaultValue = "",
+  name = "body",
+  className,
+  ...props
+}: MarkdownTextAreaProps) => {
   const [isPreview, setIsPreview] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [previewHTML, setPreviewHTML] = useState("")
@@ -44,7 +50,7 @@ const MarkdownTextArea = ({ markdownParser, defaultValue = "", name, className, 
       <div className="flex w-fit gap-2 items-center">
         <label htmlFor="body">Body</label>
         <Button
-          className="border px-2 rounded-md py-1 border-secondary hover:bg-third-hover dark:hover:bg-third-hover-d disabled:bg-gray-300 disabled:cursor-wait disabled:text-primary dark:disabled:text-primary-d"
+          className="border px-2 rounded-md py-1 disabled:cursor-wait disabled:text-primary dark:disabled:text-primary-d"
           onClick={handleClickPreview}
           type="button"
           disabled={isLoading}>
@@ -66,7 +72,7 @@ const MarkdownTextArea = ({ markdownParser, defaultValue = "", name, className, 
         className={twMerge(
           `${
             isPreview ? "hidden" : "block"
-          } text-primary dark:text-primary-d bg-primary dark:bg-primary-d border-white border text-sm font-bold resize-none w-full h-[400px] px-2 py-1`,
+          } text-primary dark:text-primary-d bg-primary dark:bg-primary-d border-primary dark:border-primary-d border text-sm font-bold resize-none w-full h-[400px] px-2 py-1 rounded-md`,
           className
         )}
         name={name}

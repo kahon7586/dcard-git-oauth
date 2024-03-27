@@ -26,7 +26,8 @@ const IssueTitleAndBody = async ({ postNumber }: IssueTitleAndBodyProps) => {
 
   return (
     <>
-      <div /*title*/ className="px-2 py-1 flex flex-col gap-2 items-baseline border rounded-lg">
+      <div
+        /*title*/ className="px-2 py-1 flex flex-col gap-2 items-baseline border border-primary dark:border-primary-d rounded-lg">
         <div className="font-bold text-2xl">
           {title}
           <span className="ml-2 font-semibold text-md text-primary dark:text-primary-d">{`# ${postNumber}`}</span>

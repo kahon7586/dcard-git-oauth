@@ -24,7 +24,7 @@ function PostBtn() {
 
   return (
     <Button
-      className="border rounded-md px-2 py-1 bg-blue-400 hover:bg-blue-300 disabled:bg-gray-400"
+      className="border rounded-md px-2 py-1"
       disabled={pending}>
       {pending ? "Sending..." : "Submit"}
     </Button>
@@ -48,7 +48,7 @@ const IssuePostForm = ({ actions }: IssuePostFormProp) => {
       <section className="font-bold text-xl gap-4 flex my-6">
         <label htmlFor="title">Title</label>
         <input
-          className="block px-2 text-xl text-primary dark:text-primary-d rounded-sm bg-primary dark:bg-primary-d border-white border w-full max-w-[400px]"
+          className="block px-2 text-xl text-primary dark:text-primary-d rounded-sm bg-primary dark:bg-primary-d border-primary dark:border-primary-d border w-full max-w-[400px] "
           type="text"
           name="title"
           placeholder="Title..."
