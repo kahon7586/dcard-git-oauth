@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import { SimpIssueData } from "../ts/data/issueData"
 import Avatar from "./user/Avatar"
@@ -8,7 +10,7 @@ interface IssueItemProps {
   issueItem: SimpIssueData
 }
 
-const IssueItem = async ({ issueItem }: IssueItemProps) => {
+const IssueItem = ({ issueItem }: IssueItemProps) => {
   const {
     content: { title, state, number, created_at, updated_at },
     user,
