@@ -65,7 +65,7 @@ export default async function RootLayout({
             </form>
           ) : (
             <div className="flex flex-col gap-2 items-center">
-              Name: Anonymous, Role: "user"
+              {'Name: Anonymous, Role: "user"'}
               <div>
                 <LinkButton
                   className="border rounded-md py-1 px-2"
