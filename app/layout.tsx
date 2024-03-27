@@ -22,7 +22,7 @@ export default async function RootLayout({
       suppressHydrationWarning
       className={theme === "dark" ? "dark" : ""}
     >
-      <body className="flex min-h-screen flex-col bg-secondary transition-colors duration-500 dark:bg-secondary-d dark:text-primary-d">
+      <body className="flex min-h-screen flex-col bg-secondary dark:bg-secondary-d dark:text-primary-d">
         <Header />
         {children}
         <Footer />
