@@ -10,6 +10,10 @@ const DEFAULT_MESSAGE: { [key: string]: string } = {
   "503": "503: Github service unavailable, try again later.",
 };
 
+/**
+ * @deprecated This function is deprecated due to octokit throw err as response
+ */
+
 export function getStatusMessage(
   code: string | number,
   fnName: string,
