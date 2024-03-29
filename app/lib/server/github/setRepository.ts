@@ -18,7 +18,6 @@ export async function setRepository(formData: FormData) {
   cookieList.set("repo", repo);
 
   revalidatePath("/issue-list"); // WIP: split this
-  redirect("/issue-list");
 }
 
 function clearRepository() {

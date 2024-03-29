@@ -4,15 +4,18 @@ import { redirect } from "next/navigation";
 import { getOctokit } from "../auth/getOctokit";
 import { getStatusMessage } from "../github/getStatusMessage";
 import { revalidatePath } from "next/cache";
+import { getRepoOrRedirect } from "../github/getRepository";
 
 export async function closeIssue(postNumber: number) {
   const octokit = await getOctokit();
 
+  const { repo, owner } = await getRepoOrRedirect();
+
   const res = await octokit.request(
     "PATCH /repos/{owner}/{repo}/issues/{issue_number}",
     {
-      owner: process.env.OWNER!,
-      repo: process.env.REPO!,
+      owner: owner,
+      repo: repo,
       issue_number: postNumber,
       state: "closed",
       headers: {

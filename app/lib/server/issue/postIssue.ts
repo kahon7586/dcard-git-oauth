@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { checkValidation } from "./checkValidation";
 import { getStatusMessage } from "../github/getStatusMessage";
+import { getRepoOrRedirect } from "../github/getRepository";
 
 // Action for sending form to post issue
 
@@ -25,11 +26,13 @@ export async function postIssue(
   if (!validation) return { ...initialState, errorMessage: reason };
 
   const octokit = await getOctokit();
+
+  const { repo, owner } = await getRepoOrRedirect();
   const { status }: { status: number } = await octokit.request(
     "POST /repos/{owner}/{repo}/issues",
     {
-      owner: process.env.OWNER!,
-      repo: process.env.REPO!,
+      owner: owner,
+      repo: repo,
       title: title!,
       body: body!,
       headers: {

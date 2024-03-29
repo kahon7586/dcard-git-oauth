@@ -1,14 +1,17 @@
 import { getOctokit } from "../auth/getOctokit";
+import { getRepoOrRedirect } from "../github/getRepository";
 
 export async function getSingleIssueData(postID: string | number) {
   if (typeof postID === "string") postID = Number(postID);
   const octokit = await getOctokit();
 
+  const { repo, owner } = await getRepoOrRedirect();
+
   const res = await octokit.request(
     "GET /repos/{owner}/{repo}/issues/{issue_number}",
     {
-      owner: process.env.OWNER!,
-      repo: process.env.REPO!,
+      owner: owner,
+      repo: repo,
       issue_number: postID,
       headers: {
         "X-GitHub-Api-Version": "2022-11-28",

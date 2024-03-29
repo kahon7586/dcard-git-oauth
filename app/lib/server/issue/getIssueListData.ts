@@ -1,6 +1,7 @@
 import { IssueContentData, SimpIssueData } from "@/app/ts/data/issueData";
 import { getOctokit } from "../auth/getOctokit";
 import { getStatusMessage } from "../github/getStatusMessage";
+import { getRepoOrRedirect } from "../github/getRepository";
 
 export async function getIssueListData(newPage: number, per_page: number = 10) {
   const octokit = await getOctokit();
@@ -8,9 +9,11 @@ export async function getIssueListData(newPage: number, per_page: number = 10) {
   // Example:
   // https://github.com/kahon7586/dcard-git-oauth/issues
 
+  const { repo, owner } = await getRepoOrRedirect();
+
   const res = await octokit.request("GET /repos/{owner}/{repo}/issues", {
-    owner: process.env.OWNER!,
-    repo: process.env.REPO!,
+    owner: owner,
+    repo: repo,
     per_page: per_page,
     page: newPage,
   });

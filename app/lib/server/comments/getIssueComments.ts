@@ -1,15 +1,18 @@
 import { ResCommentData, SimpCommentData } from "@/app/ts/data/commentData";
 import { getOctokit } from "../auth/getOctokit";
 import { getStatusMessage } from "../github/getStatusMessage";
+import { getRepoOrRedirect } from "../github/getRepository";
 
 export async function getIssueComments(postNumber: number) {
   const octokit = await getOctokit();
 
+  const { repo, owner } = await getRepoOrRedirect();
+
   const res = await octokit.request(
     "GET /repos/{owner}/{repo}/issues/{issue_number}/comments",
     {
-      owner: process.env.OWNER!,
-      repo: process.env.REPO!,
+      owner: owner,
+      repo: repo,
       issue_number: postNumber,
       headers: {
         "X-GitHub-Api-Version": "2022-11-28",

@@ -3,7 +3,6 @@ import React from "react";
 import Button from "./Button";
 import LinkButton from "./LinkButton";
 import { getRepository } from "../lib/server/github/getRepository";
-import { redirect } from "next/navigation";
 
 const UserInfo = async ({}) => {
   const session = await auth();

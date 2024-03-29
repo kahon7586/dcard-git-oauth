@@ -11,3 +11,15 @@ export async function getRepository() {
 
   return { repo, owner };
 }
+
+export async function getRepoOrRedirect() {
+  const result = await getRepository();
+
+  if (result === null) {
+    redirect("/set-repository");
+  }
+
+  const { repo, owner } = result;
+
+  return { repo, owner };
+}

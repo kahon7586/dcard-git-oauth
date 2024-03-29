@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { checkValidation } from "./checkValidation";
 import { getStatusMessage } from "../github/getStatusMessage";
+import { getRepoOrRedirect } from "../github/getRepository";
 
 // Action for sending form to edit issue
 
@@ -28,11 +29,14 @@ export async function editIssue(
   // number is appended by eventListener in edit form //[[@appendNumber]]
 
   const octokit = await getOctokit();
+
+  const { repo, owner } = await getRepoOrRedirect();
+
   const { status }: { status: number } = await octokit.request(
     "PATCH /repos/{owner}/{repo}/issues/{issue_number}",
     {
-      repo: process.env.REPO!,
-      owner: process.env.OWNER!,
+      repo: repo,
+      owner: owner,
       issue_number: Number(number),
       title: title,
       body: body,
