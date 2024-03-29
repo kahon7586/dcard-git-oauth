@@ -3,6 +3,7 @@ import React from "react";
 import Button from "./Button";
 import LinkButton from "./LinkButton";
 import { getRepository } from "../lib/server/github/getRepository";
+import { redirect } from "next/navigation";
 
 const UserInfo = async ({}) => {
   const session = await auth();
@@ -36,8 +37,6 @@ const UserInfo = async ({}) => {
 
 const Footer = async () => {
   const currRepo = await getRepository();
-
-  console.log(currRepo);
 
   return (
     <footer className="flex-grow-1 flex flex-col items-center justify-center gap-4 py-4 [&:nth-child(2)]:flex-grow">
