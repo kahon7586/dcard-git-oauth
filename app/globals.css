@@ -33,12 +33,12 @@ html.dark ::-webkit-scrollbar-thumb {
 
 @layer components {
   .absolute-center {
-    @apply min-h-[80vh] flex justify-center items-center;
+    @apply flex min-h-[60vh] items-center justify-center;
   }
 }
 
 .markdown-body {
-  @apply p-[15px] md:p-[30px] border rounded-lg min-h-[3rem];
+  @apply min-h-[3rem] rounded-lg border p-[15px] md:p-[30px];
 }
 
 .markdown-body {
