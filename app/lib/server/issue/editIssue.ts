@@ -40,10 +40,6 @@ export async function editIssue(
       title: title,
       body: body,
     });
-
-    revalidatePath("/issue-list/issue/[postNumber]", "page");
-    // clear cache before return to issue page
-    redirect(`/issue-list/issue/${number}`);
   } catch (err) {
     const message = errorConverter(err);
 
@@ -52,4 +48,11 @@ export async function editIssue(
       errorMessage: message,
     };
   }
+
+  revalidatePath("/issue-list/issue/[postNumber]", "page");
+  // clear cache before return to issue page
+  redirect(`/issue-list/issue/${number}`);
+
+  // * It is intended design that redirect behavior should be after try-catch block.
+  // * see:https://github.com/vercel/next.js/issues/55586#issuecomment-1869024539
 }

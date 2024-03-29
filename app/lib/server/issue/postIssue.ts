@@ -29,6 +29,8 @@ export async function postIssue(
 
   const { repo, owner } = await getRepoOrRedirect();
 
+  console.log(`get repo:${repo}, owner:${owner}`);
+
   try {
     await octokit.request("POST /repos/{owner}/{repo}/issues", {
       owner: owner,
@@ -39,10 +41,6 @@ export async function postIssue(
         "X-GitHub-Api-Version": "2022-11-28",
       },
     });
-
-    revalidatePath("/issue-list");
-    // clear cache for latest data
-    redirect("/issue-list");
   } catch (err) {
     const message = errorConverter(err);
 
@@ -51,4 +49,11 @@ export async function postIssue(
       errorMessage: message,
     };
   }
+
+  revalidatePath("/issue-list");
+  // clear cache for latest data
+  redirect("/issue-list");
+
+  // * It is intended design that redirect behavior should be after try-catch block.
+  // * see:https://github.com/vercel/next.js/issues/55586#issuecomment-1869024539
 }

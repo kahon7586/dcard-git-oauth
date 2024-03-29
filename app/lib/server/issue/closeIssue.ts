@@ -21,10 +21,13 @@ export async function closeIssue(postNumber: number) {
         "X-GitHub-Api-Version": "2022-11-28",
       },
     });
-
-    revalidatePath("/issue-list");
-    redirect("/issue-list");
   } catch (err) {
     errorHandler(err);
   }
+
+  revalidatePath("/issue-list");
+  redirect("/issue-list");
+
+  // * It is intended design that redirect behavior should be after try-catch block.
+  // * see:https://github.com/vercel/next.js/issues/55586#issuecomment-1869024539
 }
