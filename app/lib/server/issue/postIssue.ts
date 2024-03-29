@@ -11,7 +11,7 @@ import { errorConverter } from "../github/errorConverter";
 export async function postIssue(
   prevState: FormState | null,
   formData: FormData,
-): Promise<FormState> {
+): Promise<FormState | null> {
   "use server";
 
   let initialState = {
@@ -31,6 +31,8 @@ export async function postIssue(
 
   console.log(`get repo:${repo}, owner:${owner}`);
 
+  let isRedirect = true;
+
   try {
     await octokit.request("POST /repos/{owner}/{repo}/issues", {
       owner: owner,
@@ -43,17 +45,21 @@ export async function postIssue(
     });
   } catch (err) {
     const message = errorConverter(err);
-
+    isRedirect = false;
     return {
       ...initialState,
       errorMessage: message,
     };
   }
 
-  revalidatePath("/issue-list");
-  // clear cache for latest data
-  redirect("/issue-list");
+  if (isRedirect) {
+    revalidatePath("/issue-list");
+    // clear cache for latest data
+    redirect("/issue-list");
 
-  // * It is intended design that redirect behavior should be after try-catch block.
-  // * see:https://github.com/vercel/next.js/issues/55586#issuecomment-1869024539
+    // * It is intended design that redirect behavior should be after try-catch block.
+    // * see:https://github.com/vercel/next.js/issues/55586#issuecomment-1869024539
+  }
+
+  return prevState;
 }

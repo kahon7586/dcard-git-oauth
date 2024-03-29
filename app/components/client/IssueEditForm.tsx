@@ -12,7 +12,7 @@ interface IssueEditFormProp {
   editIssue: (
     prevState: FormState | null,
     formData: FormData,
-  ) => Promise<FormState>;
+  ) => Promise<FormState | null>;
   postNumber: string;
   markdownParser: (markdownStr: string) => Promise<string>;
   content: {
