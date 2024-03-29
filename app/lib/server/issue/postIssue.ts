@@ -3,8 +3,8 @@ import { getOctokit } from "../auth/getOctokit";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { checkValidation } from "./checkValidation";
-import { getStatusMessage } from "../github/getStatusMessage";
 import { getRepoOrRedirect } from "../github/getRepository";
+import { errorConverter } from "../github/errorConverter";
 
 // Action for sending form to post issue
 
@@ -28,9 +28,9 @@ export async function postIssue(
   const octokit = await getOctokit();
 
   const { repo, owner } = await getRepoOrRedirect();
-  const { status }: { status: number } = await octokit.request(
-    "POST /repos/{owner}/{repo}/issues",
-    {
+
+  try {
+    await octokit.request("POST /repos/{owner}/{repo}/issues", {
       owner: owner,
       repo: repo,
       title: title!,
@@ -38,21 +38,17 @@ export async function postIssue(
       headers: {
         "X-GitHub-Api-Version": "2022-11-28",
       },
-    },
-  );
+    });
 
-  if (status === 201) {
     revalidatePath("/issue-list");
     // clear cache for latest data
     redirect("/issue-list");
-  }
+  } catch (err) {
+    const message = errorConverter(err);
 
-  // <--- Failed --->
-  const message = getStatusMessage(status, postIssue.name, {
-    "410": "410: Issues are disabled in the repository",
-  });
-  return {
-    ...initialState,
-    errorMessage: message,
-  };
+    return {
+      ...initialState,
+      errorMessage: message,
+    };
+  }
 }

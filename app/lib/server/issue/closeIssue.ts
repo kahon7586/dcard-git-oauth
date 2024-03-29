@@ -2,18 +2,17 @@
 
 import { redirect } from "next/navigation";
 import { getOctokit } from "../auth/getOctokit";
-import { getStatusMessage } from "../github/getStatusMessage";
 import { revalidatePath } from "next/cache";
 import { getRepoOrRedirect } from "../github/getRepository";
+import { errorHandler } from "../github/errorHandler";
 
 export async function closeIssue(postNumber: number) {
   const octokit = await getOctokit();
 
   const { repo, owner } = await getRepoOrRedirect();
 
-  const res = await octokit.request(
-    "PATCH /repos/{owner}/{repo}/issues/{issue_number}",
-    {
+  try {
+    await octokit.request("PATCH /repos/{owner}/{repo}/issues/{issue_number}", {
       owner: owner,
       repo: repo,
       issue_number: postNumber,
@@ -21,15 +20,11 @@ export async function closeIssue(postNumber: number) {
       headers: {
         "X-GitHub-Api-Version": "2022-11-28",
       },
-    },
-  );
+    });
 
-  const { status } = res as { data: unknown; status: number };
-
-  if (status === 200) {
     revalidatePath("/issue-list");
     redirect("/issue-list");
+  } catch (err) {
+    errorHandler(err);
   }
-
-  throw Error(getStatusMessage(status, closeIssue.name));
 }

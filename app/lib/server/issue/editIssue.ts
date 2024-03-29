@@ -3,8 +3,8 @@ import { getOctokit } from "../auth/getOctokit";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { checkValidation } from "./checkValidation";
-import { getStatusMessage } from "../github/getStatusMessage";
 import { getRepoOrRedirect } from "../github/getRepository";
+import { errorConverter } from "../github/errorConverter";
 
 // Action for sending form to edit issue
 
@@ -32,27 +32,24 @@ export async function editIssue(
 
   const { repo, owner } = await getRepoOrRedirect();
 
-  const { status }: { status: number } = await octokit.request(
-    "PATCH /repos/{owner}/{repo}/issues/{issue_number}",
-    {
+  try {
+    await octokit.request("PATCH /repos/{owner}/{repo}/issues/{issue_number}", {
       repo: repo,
       owner: owner,
       issue_number: Number(number),
       title: title,
       body: body,
-    },
-  );
+    });
 
-  if (status === 200) {
     revalidatePath("/issue-list/issue/[postNumber]", "page");
     // clear cache before return to issue page
     redirect(`/issue-list/issue/${number}`);
-  }
+  } catch (err) {
+    const message = errorConverter(err);
 
-  // <--- Failed --->
-  const message = getStatusMessage(status, editIssue.name);
-  return {
-    ...initialState,
-    errorMessage: message,
-  };
+    return {
+      ...initialState,
+      errorMessage: message,
+    };
+  }
 }

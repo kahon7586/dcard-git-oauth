@@ -57,7 +57,7 @@ export async function getIssueListData(newPage: number, per_page: number = 10) {
     } = errRes;
 
     if (status === 404) return message;
-    // Usually not found should be the most common case, so it is specially handled
+    // Usually not found should be the most common case because the repo and owner is specified initailly by user, so it is specially handled
 
     throw Error(`${status.toString()} ${message}, see: ${documentation_url}`);
   }
