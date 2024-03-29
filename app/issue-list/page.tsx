@@ -12,6 +12,9 @@ const page = async () => {
     "use server";
     const issueListData = await getIssueListData(pages, ISSUES_PER_LOAD);
 
+    if (typeof issueListData === "string") return issueListData;
+    // Error message
+
     return issueListData
       ? issueListData.map((issue) => (
           <IssueItem issueItem={issue} key={issue.content.id} />

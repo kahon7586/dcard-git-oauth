@@ -33,3 +33,15 @@ export interface IssueContentData {
   created_at: string;
   updated_at: string;
 }
+
+export interface GithubError {
+  status: number;
+  response: {
+    url: string;
+    status: number;
+    data: {
+      message: string;
+      documentation_url: string;
+    };
+  };
+}
