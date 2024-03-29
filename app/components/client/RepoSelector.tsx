@@ -1,7 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import Button from "../Button";
+import { getClientCookie } from "@/app/lib/client/ParseClientCookies";
 
 interface RepoSelectorProps {
   setRepository: (formData: FormData) => Promise<void>;
@@ -9,6 +11,22 @@ interface RepoSelectorProps {
 
 const RepoSelector = ({ setRepository }: RepoSelectorProps) => {
   const router = useRouter();
+
+  const repoRef = useRef<HTMLInputElement>(null);
+  const ownerRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    // Due to getClientCookie use document, the defalutValue of input needs to set after server-prerender finish, thus I use useEffect here.
+
+    const repo = repoRef.current;
+    const owner = ownerRef.current;
+
+    const repoValue = getClientCookie("repo");
+    const ownerValue = getClientCookie("owner");
+
+    repo!.defaultValue = repoValue ?? "nextauthjs";
+    owner!.defaultValue = ownerValue ?? "next-auth";
+  }, []);
 
   async function submitAction(formData: FormData) {
     await setRepository(formData);
@@ -29,15 +47,17 @@ const RepoSelector = ({ setRepository }: RepoSelectorProps) => {
       <input
         className="rounded-md border border-primary bg-secondary px-2 dark:border-primary-d dark:bg-secondary-d"
         name="owner"
-        defaultValue="nextauthjs"
+        ref={ownerRef}
+        required
       />
       <label htmlFor="repo">Repo</label>
       <input
         className="rounded-md border border-primary bg-secondary px-2 dark:border-primary-d dark:bg-secondary-d"
         name="repo"
-        defaultValue="next-auth"
+        ref={repoRef}
+        required
       />
-      <button type="submit">Enter</button>
+      <Button type="submit">Enter</Button>
     </form>
   );
 };
