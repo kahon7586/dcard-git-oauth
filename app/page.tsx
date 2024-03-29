@@ -1,11 +1,15 @@
 import LoginCard from "./components/user/LoginCard";
 import { auth, signIn } from "@/auth";
 import { redirect } from "next/navigation";
+import { getRepository } from "./lib/server/github/getRepository";
 
 export default async function page() {
   const session = await auth();
   let user = session?.user?.name;
 
+  if (user && (await getRepository()) === null) {
+    redirect("/set-repository");
+  }
   if (user) return null;
 
   return (
@@ -15,7 +19,6 @@ export default async function page() {
         action={async () => {
           "use server";
           await signIn("github");
-          redirect("/issue-list");
         }}
       />
     </div>
