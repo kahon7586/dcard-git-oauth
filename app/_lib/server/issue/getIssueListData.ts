@@ -14,8 +14,10 @@ export async function getIssueListData(newPage: number, per_page: number = 10) {
   // Example:
   // https://github.com/kahon7586/dcard-git-oauth/issues
 
-  const { repo, owner } = await getRepoOrRedirect();
-  if (repo === undefined || owner === undefined) return null;
+  const repoValue = await getRepoOrRedirect();
+  if (repoValue === undefined) return null;
+
+  const { repo, owner } = repoValue;
 
   try {
     const res = await octokit.request("GET /repos/{owner}/{repo}/issues", {

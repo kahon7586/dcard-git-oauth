@@ -6,8 +6,10 @@ import { errorHandler } from "../github/errorHandler";
 export async function getIssueComments(postNumber: number) {
   const octokit = await getOctokit();
 
-  const { repo, owner } = await getRepoOrRedirect();
-  if (repo === undefined || owner === undefined) return null;
+  const repoValue = await getRepoOrRedirect();
+  if (repoValue === undefined) return null;
+
+  const { repo, owner } = repoValue;
 
   try {
     const res = await octokit.request(
