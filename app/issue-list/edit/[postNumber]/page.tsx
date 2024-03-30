@@ -11,7 +11,11 @@ interface pageProps {
 const page = async ({ params }: pageProps) => {
   const postNumber = params.postNumber;
 
-  const { title, body } = await getSingleIssueData(postNumber);
+  const data = await getSingleIssueData(postNumber);
+  if (!data) return null;
+  // user should be redirected before receive null data
+
+  const { title, body } = data;
 
   return (
     <div className="container">

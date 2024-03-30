@@ -13,6 +13,10 @@ interface IssueTitleAndBodyProps {
 }
 
 const IssueTitleAndBody = async ({ postNumber }: IssueTitleAndBodyProps) => {
+  const data = await getSingleIssueData(postNumber);
+  if (!data) return null;
+  // user should be redirected before receive null data
+
   const {
     title,
     body_html,
@@ -20,7 +24,7 @@ const IssueTitleAndBody = async ({ postNumber }: IssueTitleAndBodyProps) => {
     state,
     updated_at,
     created_at,
-  } = await getSingleIssueData(postNumber);
+  } = data;
 
   // ! Potential XSS attack may exist in body
 

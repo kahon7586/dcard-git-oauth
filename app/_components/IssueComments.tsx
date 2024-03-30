@@ -9,7 +9,8 @@ interface IssueCommentsProps {
 const IssueComments = async ({ postNumber }: IssueCommentsProps) => {
   const dataList = await getIssueComments(postNumber);
 
-  if (dataList === null) return null;
+  if (!dataList) return null;
+  // user should be redirected before receive null data
 
   return dataList.map((data) => (
     <SpeechBubble data={data} key={data.content.id} />
