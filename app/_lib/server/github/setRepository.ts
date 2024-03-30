@@ -16,7 +16,7 @@ export async function setRepository(formData: FormData) {
   cookieList.set("owner", owner);
   cookieList.set("repo", repo);
 
-  revalidatePath("/issue-list"); // WIP: split this
+  revalidatePath("/issue-list");
 }
 
 function clearRepository() {
