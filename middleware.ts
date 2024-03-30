@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "./auth";
+import { getUserRole } from "./app/_lib/server/auth/getCurrUser";
 
 export { auth as default } from "./auth";
 
@@ -12,13 +12,10 @@ function isAccessAdminRoutes(pathname: string) {
 }
 
 export async function middleware(req: NextRequest, res: NextResponse) {
-  const session = await auth();
-  const userRole = session?.user?.role;
+  const userRole = await getUserRole();
 
-  if (userRole === undefined || userRole === "user") {
-    if (isAccessAdminRoutes(req.nextUrl.pathname)) {
-      return NextResponse.redirect(new URL("/issue-list", req.url));
-    }
+  if (userRole === "user" && isAccessAdminRoutes(req.nextUrl.pathname)) {
+    return NextResponse.redirect(new URL("/issue-list", req.url));
   }
 
   return NextResponse.next();

@@ -1,5 +1,4 @@
-import { adminList } from "@/app/_data/admin";
-import { getCurrUser } from "@/app/_lib/server/auth/getCurrUser";
+import { getUserRole } from "@/app/_lib/server/auth/getCurrUser";
 import React, { ReactNode } from "react";
 
 interface AdminOnlyProps {
@@ -7,9 +6,9 @@ interface AdminOnlyProps {
 }
 
 const AdminOnly = async ({ children }: AdminOnlyProps) => {
-  const { name, role } = await getCurrUser();
+  const userRole = await getUserRole();
 
-  if (!(name && role === "admin")) return null;
+  if (userRole === "user") return null;
 
   return <>{children}</>;
 };

@@ -1,13 +1,12 @@
-import { auth, signOut } from "@/auth";
+import { signOut } from "@/auth";
 import React from "react";
 import Button from "./Button";
 import LinkButton from "./LinkButton";
 import { getRepository } from "../_lib/server/github/getRepository";
+import { getCurrUser } from "../_lib/server/auth/getCurrUser";
 
 const UserInfo = async ({}) => {
-  const session = await auth();
-  const userName = session?.user?.name;
-  const userRole = session?.user?.role;
+  const { name: userName, role: userRole, isLogin } = await getCurrUser();
 
   async function signOutAction() {
     "use server";
@@ -17,9 +16,9 @@ const UserInfo = async ({}) => {
   return (
     <form action={signOutAction}>
       <div className="flex flex-col items-center gap-2">
-        {`Name: ${userName ?? "Anonymous"}, Role: ${userRole ?? "user"}`}
+        {`Name: ${userName}, Role: ${userRole}`}
         <div>
-          {session ? (
+          {isLogin ? (
             <Button className="rounded-md border px-2 py-1" type="submit">
               Sign Out
             </Button>
