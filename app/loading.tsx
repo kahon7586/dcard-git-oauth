@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React from "react";
-import peppoDance from "@/app/asset/PeepoDance.gif";
-import crumbCat from "@/app/asset/crumb-cat.gif";
-import rainbowParrot from "@/app/asset/rainbowParrot.gif";
+import peppoDance from "@/app/_asset/PeepoDance.gif";
+import crumbCat from "@/app/_asset/crumb-cat.gif";
+import rainbowParrot from "@/app/_asset/rainbowParrot.gif";
 
 const PeppoDance = () => {
   return (

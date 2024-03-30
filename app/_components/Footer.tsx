@@ -2,7 +2,7 @@ import { auth, signOut } from "@/auth";
 import React from "react";
 import Button from "./Button";
 import LinkButton from "./LinkButton";
-import { getRepository } from "../lib/server/github/getRepository";
+import { getRepository } from "../_lib/server/github/getRepository";
 
 const UserInfo = async ({}) => {
   const session = await auth();

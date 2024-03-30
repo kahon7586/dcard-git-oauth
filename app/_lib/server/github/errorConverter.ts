@@ -1,4 +1,4 @@
-import { GithubError } from "@/app/ts/data/issueData";
+import { GithubError } from "@/app/_ts/data/issueData";
 
 // * This function is created for formState, so it simply return message, not throwing error.
 

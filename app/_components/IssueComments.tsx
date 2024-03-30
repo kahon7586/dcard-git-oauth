@@ -1,5 +1,5 @@
 import React from "react";
-import { getIssueComments } from "../lib/server/comments/getIssueComments";
+import { getIssueComments } from "../_lib/server/comments/getIssueComments";
 import SpeechBubble from "./user/SpeechBubble";
 
 interface IssueCommentsProps {

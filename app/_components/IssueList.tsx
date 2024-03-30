@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { useInfiniteScroll } from "../hook/useInfiniteScroll";
+import { useInfiniteScroll } from "../_hook/useInfiniteScroll";
 import Spinner from "./Spinner";
 
 interface IssueListProps {

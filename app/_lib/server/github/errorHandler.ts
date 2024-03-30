@@ -1,4 +1,4 @@
-import { GithubError } from "@/app/ts/data/issueData";
+import { GithubError } from "@/app/_ts/data/issueData";
 
 export function errorHandler(err: unknown | any) {
   console.log(err);

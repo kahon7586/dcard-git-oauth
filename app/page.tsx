@@ -1,7 +1,7 @@
-import LoginCard from "./components/user/LoginCard";
+import LoginCard from "./_components/user/LoginCard";
 import { auth, signIn } from "@/auth";
 import { redirect } from "next/navigation";
-import { getRepository } from "./lib/server/github/getRepository";
+import { getRepository } from "./_lib/server/github/getRepository";
 
 export default async function page() {
   const session = await auth();

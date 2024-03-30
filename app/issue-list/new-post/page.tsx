@@ -1,6 +1,6 @@
-import IssuePostForm from "@/app/components/client/IssuePostform";
-import { postIssue } from "@/app/lib/server/issue/postIssue";
-import { markdownParser } from "@/app/lib/server/markdown/markdownParser";
+import IssuePostForm from "@/app/_components/client/IssuePostform";
+import { postIssue } from "@/app/_lib/server/issue/postIssue";
+import { markdownParser } from "@/app/_lib/server/markdown/markdownParser";
 import React from "react";
 
 const page = () => {

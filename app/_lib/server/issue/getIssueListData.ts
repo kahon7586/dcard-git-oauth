@@ -2,7 +2,7 @@ import {
   GithubError,
   IssueContentData,
   SimpIssueData,
-} from "@/app/ts/data/issueData";
+} from "@/app/_ts/data/issueData";
 import { getOctokit } from "../auth/getOctokit";
 import { getRepoOrRedirect } from "../github/getRepository";
 

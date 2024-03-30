@@ -1,5 +1,5 @@
-import { adminList } from "@/app/data/admin";
-import { getCurrUser } from "@/app/lib/server/auth/getCurrUser";
+import { adminList } from "@/app/_data/admin";
+import { getCurrUser } from "@/app/_lib/server/auth/getCurrUser";
 import React, { ReactNode } from "react";
 
 interface AdminOnlyProps {

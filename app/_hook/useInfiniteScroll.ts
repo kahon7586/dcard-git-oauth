@@ -1,5 +1,5 @@
 import { MutableRefObject, useEffect, useState } from "react";
-import { throttle } from "../lib/common/throttle";
+import { throttle } from "../_lib/common/throttle";
 
 const TEST_THROTTLE_DELAY = 200;
 

@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
-import { adminList } from "./app/data/admin";
+import { adminList } from "./app/_data/admin";
 
 // callback will tirgger before being called,
 // so you can modify data such as session, token from argument then return it

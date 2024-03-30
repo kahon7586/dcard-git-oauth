@@ -1,6 +1,6 @@
 import React from "react";
-import IssueTitleAndBody from "@/app/components/IssueTitleAndBody";
-import IssueComments from "@/app/components/IssueComments";
+import IssueTitleAndBody from "@/app/_components/IssueTitleAndBody";
+import IssueComments from "@/app/_components/IssueComments";
 
 interface PageProps {
   params: { postNumber: string };

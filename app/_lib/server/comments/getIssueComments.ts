@@ -1,4 +1,4 @@
-import { ResCommentData, SimpCommentData } from "@/app/ts/data/commentData";
+import { ResCommentData, SimpCommentData } from "@/app/_ts/data/commentData";
 import { getOctokit } from "../auth/getOctokit";
 import { getRepoOrRedirect } from "../github/getRepository";
 import { errorHandler } from "../github/errorHandler";

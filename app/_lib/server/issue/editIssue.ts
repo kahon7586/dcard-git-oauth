@@ -1,4 +1,4 @@
-import { FormState } from "@/app/components/client/IssueEditForm";
+import { FormState } from "@/app/_components/client/IssueEditForm";
 import { getOctokit } from "../auth/getOctokit";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -6,9 +6,9 @@ import { checkValidation } from "./checkValidation";
 import { getRepoOrRedirect } from "../github/getRepository";
 import { errorConverter } from "../github/errorConverter";
 
-// Action for sending form to post issue
+// Action for sending form to edit issue
 
-export async function postIssue(
+export async function editIssue(
   prevState: FormState | null,
   formData: FormData,
 ): Promise<FormState | null> {
@@ -25,23 +25,22 @@ export async function postIssue(
   const { validation, reason } = checkValidation(title, body);
   if (!validation) return { ...initialState, errorMessage: reason };
 
+  const number = formData.get("number") as string | null;
+  // number is appended by eventListener in edit form //[[@appendNumber]]
+
   const octokit = await getOctokit();
 
   const { repo, owner } = await getRepoOrRedirect();
 
-  console.log(`get repo:${repo}, owner:${owner}`);
-
   let isRedirect = true;
 
   try {
-    await octokit.request("POST /repos/{owner}/{repo}/issues", {
-      owner: owner,
+    await octokit.request("PATCH /repos/{owner}/{repo}/issues/{issue_number}", {
       repo: repo,
-      title: title!,
-      body: body!,
-      headers: {
-        "X-GitHub-Api-Version": "2022-11-28",
-      },
+      owner: owner,
+      issue_number: Number(number),
+      title: title,
+      body: body,
     });
   } catch (err) {
     const message = errorConverter(err);
@@ -53,9 +52,9 @@ export async function postIssue(
   }
 
   if (isRedirect) {
-    revalidatePath("/issue-list");
-    // clear cache for latest data
-    redirect("/issue-list");
+    revalidatePath("/issue-list/issue/[postNumber]", "page");
+    // clear cache before return to issue page
+    redirect(`/issue-list/issue/${number}`);
 
     // * It is intended design that redirect behavior should be after try-catch block.
     // * see:https://github.com/vercel/next.js/issues/55586#issuecomment-1869024539

@@ -1,7 +1,7 @@
-import IssueEditForm from "@/app/components/client/IssueEditForm";
-import { editIssue } from "@/app/lib/server/issue/editIssue";
-import { getSingleIssueData } from "@/app/lib/server/issue/getSingleIssueData";
-import { markdownParser } from "@/app/lib/server/markdown/markdownParser";
+import IssueEditForm from "@/app/_components/client/IssueEditForm";
+import { editIssue } from "@/app/_lib/server/issue/editIssue";
+import { getSingleIssueData } from "@/app/_lib/server/issue/getSingleIssueData";
+import { markdownParser } from "@/app/_lib/server/markdown/markdownParser";
 import React from "react";
 
 interface pageProps {

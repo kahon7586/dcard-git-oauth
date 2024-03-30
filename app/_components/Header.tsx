@@ -5,7 +5,7 @@ import Spinner from "./Spinner";
 
 const Header = () => {
   const ThemeToggler = dynamic(
-    () => import("@/app/components/client/ThemeToggler"),
+    () => import("@/app/_components/client/ThemeToggler"),
     {
       ssr: false,
       loading: () => <Spinner className="fill-black" />,

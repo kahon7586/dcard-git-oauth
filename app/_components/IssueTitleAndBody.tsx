@@ -1,11 +1,11 @@
 import React from "react";
-import { closeIssue } from "../lib/server/issue/closeIssue";
-import { getSingleIssueData } from "../lib/server/issue/getSingleIssueData";
+import { closeIssue } from "../_lib/server/issue/closeIssue";
+import { getSingleIssueData } from "../_lib/server/issue/getSingleIssueData";
 import DeleteBtn from "./DeleteBtn";
 import IssueBody from "./user/IssueBody";
 import AdminOnly from "./user/AdminOnly";
 import Avatar from "./user/Avatar";
-import { getTimeAgoLabel } from "../lib/common/getTimeAgoLabel";
+import { getTimeAgoLabel } from "../_lib/common/getTimeAgoLabel";
 import LinkButton from "./LinkButton";
 
 interface IssueTitleAndBodyProps {

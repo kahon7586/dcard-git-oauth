@@ -1,6 +1,6 @@
 import React from "react";
-import RepoSelector from "../components/client/RepoSelector";
-import { setRepository } from "../lib/server/github/setRepository";
+import RepoSelector from "../_components/client/RepoSelector";
+import { setRepository } from "../_lib/server/github/setRepository";
 
 const page = async () => {
   async function setRepoAction(formData: FormData) {

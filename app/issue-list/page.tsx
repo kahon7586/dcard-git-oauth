@@ -1,9 +1,9 @@
 import React from "react";
-import IssueList from "../components/IssueList";
-import AdminOnly from "../components/user/AdminOnly";
-import { getIssueListData } from "../lib/server/issue/getIssueListData";
-import IssueItem from "../components/IssueItem";
-import LinkButton from "../components/LinkButton";
+import IssueList from "../_components/IssueList";
+import AdminOnly from "../_components/user/AdminOnly";
+import { getIssueListData } from "../_lib/server/issue/getIssueListData";
+import IssueItem from "../_components/IssueItem";
+import LinkButton from "../_components/LinkButton";
 
 const ISSUES_PER_LOAD = 10;
 

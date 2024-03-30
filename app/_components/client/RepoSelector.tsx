@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef } from "react";
 import Button from "../Button";
-import { getClientCookie } from "@/app/lib/client/ParseClientCookies";
+import { getClientCookie } from "@/app/_lib/client/ParseClientCookies";
 
 interface RepoSelectorProps {
   setRepository: (formData: FormData) => Promise<void>;

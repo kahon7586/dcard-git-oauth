@@ -1,8 +1,8 @@
 import React from "react";
 import "./SpeechBubble.css";
 import Avatar from "./Avatar";
-import { SimpCommentData } from "@/app/ts/data/commentData";
-import { getTimeAgoLabel } from "@/app/lib/common/getTimeAgoLabel";
+import { SimpCommentData } from "@/app/_ts/data/commentData";
+import { getTimeAgoLabel } from "@/app/_lib/common/getTimeAgoLabel";
 
 interface SpeechBubbleProps {
   data: SimpCommentData;
