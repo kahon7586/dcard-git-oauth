@@ -47,6 +47,11 @@ export const {
 
       return session; // this session will be returned when calling auth() in server side
     },
+    async redirect({ url, baseUrl }) {
+      // callback for signIn & signOut redirect
+
+      return baseUrl; // redirect("/")
+    },
   },
   trustHost: true,
 });
