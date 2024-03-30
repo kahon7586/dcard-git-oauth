@@ -1,19 +1,22 @@
 import LoginCard from "./_components/user/LoginCard";
-import { auth, signIn } from "@/auth";
-import { getRepository } from "./_lib/server/github/getRepository";
-import { toSetRepository } from "./_lib/server/nextjs/redirectTo";
+import { signIn } from "@/auth";
+import { getCurrUser } from "./_lib/server/auth/getCurrUser";
+import Link from "next/link";
 
 export default async function page() {
-  const session = await auth();
-  let user = session?.user?.name;
+  let user = await getCurrUser();
 
-  if (user && (await getRepository()) === null) {
-    toSetRepository();
-  }
-  if (user) return null;
+  if (user.isLogin)
+    return (
+      <div className="absolute-center flex-col">
+        <Link className="mt-10 text-xl underline" href="/issue-list">
+          Continue as admin
+        </Link>
+      </div>
+    );
 
   return (
-    <div className="absolute-center flex-col gap-10 ">
+    <div className="absolute-center flex-col">
       <LoginCard
         role="admin"
         action={async () => {
@@ -21,6 +24,10 @@ export default async function page() {
           await signIn("github");
         }}
       />
+
+      <Link className="mt-10 text-xl underline" href="/issue-list">
+        Continue as user
+      </Link>
     </div>
   );
 }
