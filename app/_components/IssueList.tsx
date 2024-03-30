@@ -59,7 +59,7 @@ const IssueList = ({
       setIsBottom(false);
     }
     pushData();
-  }, [isBottom, getIssueNodeList, isNoMoreData, setIsBottom]);
+  }, [isBottom, getIssueNodeList, isNoMoreData, setIsBottom, isErrorOccur]);
 
   return (
     <div
