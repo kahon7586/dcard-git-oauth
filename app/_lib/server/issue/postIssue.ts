@@ -1,10 +1,10 @@
 import { FormState } from "@/app/_components/client/IssueEditForm";
 import { getOctokit } from "../auth/getOctokit";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { checkValidation } from "./checkValidation";
 import { getRepoOrRedirect } from "../github/getRepository";
 import { errorConverter } from "../github/errorConverter";
+import { toIssueList } from "../nextjs/redirectTo";
 
 // Action for sending form to post issue
 
@@ -28,6 +28,7 @@ export async function postIssue(
   const octokit = await getOctokit();
 
   const { repo, owner } = await getRepoOrRedirect();
+  if (repo === undefined || owner === undefined) return null;
 
   console.log(`get repo:${repo}, owner:${owner}`);
 
@@ -55,7 +56,7 @@ export async function postIssue(
   if (isRedirect) {
     revalidatePath("/issue-list");
     // clear cache for latest data
-    redirect("/issue-list");
+    toIssueList();
 
     // * It is intended design that redirect behavior should be after try-catch block.
     // * see:https://github.com/vercel/next.js/issues/55586#issuecomment-1869024539

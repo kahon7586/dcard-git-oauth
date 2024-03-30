@@ -1,10 +1,10 @@
 import { FormState } from "@/app/_components/client/IssueEditForm";
 import { getOctokit } from "../auth/getOctokit";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { checkValidation } from "./checkValidation";
 import { getRepoOrRedirect } from "../github/getRepository";
 import { errorConverter } from "../github/errorConverter";
+import { toIssue } from "../nextjs/redirectTo";
 
 // Action for sending form to edit issue
 
@@ -26,11 +26,17 @@ export async function editIssue(
   if (!validation) return { ...initialState, errorMessage: reason };
 
   const number = formData.get("number") as string | null;
+  if (!number)
+    return {
+      ...initialState,
+      errorMessage: "Post number is undefined, check your form data!",
+    };
   // number is appended by eventListener in edit form //[[@appendNumber]]
 
   const octokit = await getOctokit();
 
   const { repo, owner } = await getRepoOrRedirect();
+  if (repo === undefined || owner === undefined) return null;
 
   let isRedirect = true;
 
@@ -54,7 +60,7 @@ export async function editIssue(
   if (isRedirect) {
     revalidatePath("/issue-list/issue/[postNumber]", "page");
     // clear cache before return to issue page
-    redirect(`/issue-list/issue/${number}`);
+    toIssue(number);
 
     // * It is intended design that redirect behavior should be after try-catch block.
     // * see:https://github.com/vercel/next.js/issues/55586#issuecomment-1869024539

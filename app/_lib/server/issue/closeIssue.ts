@@ -1,15 +1,16 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { getOctokit } from "../auth/getOctokit";
 import { revalidatePath } from "next/cache";
 import { getRepoOrRedirect } from "../github/getRepository";
 import { errorHandler } from "../github/errorHandler";
+import { toIssueList } from "../nextjs/redirectTo";
 
 export async function closeIssue(postNumber: number) {
   const octokit = await getOctokit();
 
   const { repo, owner } = await getRepoOrRedirect();
+  if (repo === undefined || owner === undefined) return null;
 
   try {
     await octokit.request("PATCH /repos/{owner}/{repo}/issues/{issue_number}", {
@@ -26,7 +27,8 @@ export async function closeIssue(postNumber: number) {
   }
 
   revalidatePath("/issue-list");
-  redirect("/issue-list");
+  toIssueList();
+  return;
 
   // * It is intended design that redirect behavior should be after try-catch block.
   // * see:https://github.com/vercel/next.js/issues/55586#issuecomment-1869024539

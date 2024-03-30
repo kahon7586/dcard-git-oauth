@@ -7,6 +7,7 @@ export async function getIssueComments(postNumber: number) {
   const octokit = await getOctokit();
 
   const { repo, owner } = await getRepoOrRedirect();
+  if (repo === undefined || owner === undefined) return null;
 
   try {
     const res = await octokit.request(

@@ -1,14 +1,14 @@
 import LoginCard from "./_components/user/LoginCard";
 import { auth, signIn } from "@/auth";
-import { redirect } from "next/navigation";
 import { getRepository } from "./_lib/server/github/getRepository";
+import { toSetRepository } from "./_lib/server/nextjs/redirectTo";
 
 export default async function page() {
   const session = await auth();
   let user = session?.user?.name;
 
   if (user && (await getRepository()) === null) {
-    redirect("/set-repository");
+    toSetRepository();
   }
   if (user) return null;
 

@@ -7,12 +7,15 @@ import { getOctokit } from "../auth/getOctokit";
 import { getRepoOrRedirect } from "../github/getRepository";
 
 export async function getIssueListData(newPage: number, per_page: number = 10) {
+  // Return string as errorMessage
+
   const octokit = await getOctokit();
 
   // Example:
   // https://github.com/kahon7586/dcard-git-oauth/issues
 
   const { repo, owner } = await getRepoOrRedirect();
+  if (repo === undefined || owner === undefined) return null;
 
   try {
     const res = await octokit.request("GET /repos/{owner}/{repo}/issues", {

@@ -6,6 +6,7 @@ export async function getSingleIssueData(postID: string | number) {
   const octokit = await getOctokit();
 
   const { repo, owner } = await getRepoOrRedirect();
+  if (repo === undefined || owner === undefined) return null;
 
   const res = await octokit.request(
     "GET /repos/{owner}/{repo}/issues/{issue_number}",
