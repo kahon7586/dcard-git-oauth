@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
-import { adminList } from "./app/_data/admin";
+// import { adminList } from "./app/_data/admin";
 
 // callback will tirgger before being called,
 // so you can modify data such as session, token from argument then return it
@@ -41,7 +41,8 @@ export const {
         // set token value in session
 
         const userName = session.user.name as string;
-        session.user.role = adminList.includes(userName) ? "admin" : "user";
+        session.user.role = "admin";
+        // session.user.role = adminList.includes(userName) ? "admin" : "user";
         // set user role in session
       }
 
