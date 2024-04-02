@@ -1,7 +1,7 @@
 "use client";
 
 import { HTMLAttributes, useState } from "react";
-import CommonBtn from "./Button";
+import CommonBtn from "../Button";
 
 interface DeleteBtnProps extends HTMLAttributes<HTMLButtonElement> {
   action: (postNumber: number) => unknown;
