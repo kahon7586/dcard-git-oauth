@@ -1,7 +1,7 @@
 "use client";
 
 import React, { ButtonHTMLAttributes } from "react";
-import Button from "./Button";
+import Button from "../Button";
 
 interface SignOutBtnProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   action: (arg?: unknown) => unknown;
