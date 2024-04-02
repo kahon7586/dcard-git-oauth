@@ -68,7 +68,7 @@ const IssueList = ({
     >
       {isBottom && !isNoMoreData && !isErrorOccur ? (
         <div className="sticky top-[50%] my-4 flex cursor-default items-center justify-center ">
-          <Spinner className=" dark:fill-white" />
+          <Spinner />
           Loading...
         </div>
       ) : null}

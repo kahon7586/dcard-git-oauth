@@ -12,6 +12,8 @@ const config: Config = {
       colors: {
         "primary-hover": "#e5e5e5",
         "primary-hover-d": "#222d3d",
+        "text-primary": "#333333",
+        "text-primary-d": "#f1f7ff",
       },
       textColor: {
         primary: "#333333",

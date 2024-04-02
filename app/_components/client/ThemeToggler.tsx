@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ThemeIcon from "../ThemeIcon";
 import { IoSunny } from "react-icons/io5";
 import { IoMoon } from "react-icons/io5";
+import Spinner from "../Spinner";
 
 function getHtml() {
   return document.getElementsByTagName("html")[0];
@@ -13,21 +14,28 @@ function getHtml() {
 // Note that when using light theme, there's no "light" in html class list
 
 const ThemeToggler = () => {
-  const [theme, setTheme] = useState<"dark" | "light">(() => {
-    if (document.cookie.includes(`theme=light`)) return "light";
-    if (document.cookie.includes(`theme=dark`)) return "dark";
-    // look for theme in cookie
+  const [theme, setTheme] = useState<"dark" | "light" | null>(null);
 
-    const html = getHtml();
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      html.classList.add("dark");
-      document.cookie = `theme=dark`;
-      return "dark";
+  useEffect(() => {
+    function themeInitializer() {
+      if (document.cookie.includes(`theme=light`)) return "light";
+      if (document.cookie.includes(`theme=dark`)) return "dark";
+      // look for theme in cookie
+
+      // if cookie not found, setcookie from browser preference.
+      const html = getHtml();
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        html.classList.add("dark");
+        document.cookie = `theme=dark`;
+        return "dark";
+      }
+      html.classList.remove("dark");
+      document.cookie = `theme=light`;
+      return "light";
     }
-    html.classList.remove("dark");
-    document.cookie = `theme=light`;
-    return "light";
-  });
+
+    setTheme(themeInitializer);
+  }, []);
 
   function handleToggle() {
     const html = getHtml();
@@ -44,6 +52,8 @@ const ThemeToggler = () => {
       return "dark";
     });
   }
+
+  if (theme === null) return <Spinner />;
 
   return (
     <div onClick={handleToggle}>

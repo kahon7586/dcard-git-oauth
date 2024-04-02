@@ -1,17 +1,9 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import React from "react";
-import Spinner from "./Spinner";
+import ThemeToggler from "./client/ThemeToggler";
 
 const Header = () => {
-  const ThemeToggler = dynamic(
-    () => import("@/app/_components/client/ThemeToggler"),
-    {
-      ssr: false,
-      loading: () => <Spinner className="fill-black" />,
-    },
-  );
-
   return (
     <header className="flex items-center justify-between gap-6 px-6 py-2 text-xl font-bold shadow-md shadow-primary-hover dark:shadow-md dark:shadow-primary-hover-d">
       <div className="flex gap-6">
