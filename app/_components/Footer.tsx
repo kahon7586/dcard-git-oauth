@@ -1,9 +1,9 @@
 import { signOut } from "@/auth";
 import React from "react";
-import Button from "./Button";
 import LinkButton from "./LinkButton";
 import { getRepository } from "../_lib/server/github/getRepository";
 import { getCurrUser } from "../_lib/server/auth/getCurrUser";
+import SignOutBtn from "./client/SignOutBtn";
 
 const UserInfo = async ({}) => {
   const { name: userName, role: userRole, isLogin } = await getCurrUser();
@@ -14,22 +14,18 @@ const UserInfo = async ({}) => {
   }
 
   return (
-    <form action={signOutAction}>
-      <div className="flex flex-col items-center gap-2">
-        {`Name: ${userName}, Role: ${userRole}`}
-        <div>
-          {isLogin ? (
-            <Button className="rounded-md border px-2 py-1" type="submit">
-              Sign Out
-            </Button>
-          ) : (
-            <LinkButton className="rounded-md border px-2 py-1" href="/">
-              Login
-            </LinkButton>
-          )}
-        </div>
+    <div className="flex flex-col items-center gap-2">
+      {`Name: ${userName}, Role: ${userRole}`}
+      <div>
+        {isLogin ? (
+          <SignOutBtn action={signOutAction} type="button" />
+        ) : (
+          <LinkButton className="rounded-md border px-2 py-1" href="/">
+            Login
+          </LinkButton>
+        )}
       </div>
-    </form>
+    </div>
   );
 };
 
