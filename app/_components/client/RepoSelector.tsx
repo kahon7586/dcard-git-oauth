@@ -39,10 +39,13 @@ const RepoSelector = ({ setRepository }: RepoSelectorProps) => {
 
   return (
     <form
-      className="mt-4 flex max-w-[100px] flex-col items-center justify-center gap-4 whitespace-nowrap"
+      className="mt-4 flex min-w-fit max-w-[100px] flex-col items-center justify-center gap-4 whitespace-nowrap"
       action={submitAction}
     >
-      Enter your repository
+      <div className="text-center">
+        Enter your repository, follow this format: <br />
+        {"https://github.com/{Owner}/{Repo}"}
+      </div>
       <label htmlFor="owner">Owner</label>
       <input
         className="rounded-md border border-primary bg-secondary px-2 dark:border-primary-d dark:bg-secondary-d"

@@ -9,7 +9,7 @@ const page = async () => {
   }
 
   return (
-    <div className="mx-auto">
+    <div className="flex flex-col items-center justify-center">
       <RepoSelector setRepository={setRepoAction} />
     </div>
   );
