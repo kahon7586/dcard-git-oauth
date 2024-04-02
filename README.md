@@ -23,6 +23,14 @@ This homework is maded by Nextjs 14.1, App router, Typescript and with these fol
 
 To run this project, please use `npm run dev` for developer mode or `npm run build`, then `npm run start` for prodution mode.
 
+## Usage
+
+When visit home page, choose to login with github account as admin or continue as user, then enter your github repository to access issue list.
+
+Your repository should be like: `https://github.com/{owner}/{repo}`.
+
+Then you can read, post, edit or delete issue as admin, or read as user.
+
 ## Project structure
 
 ### Authorization:
@@ -31,7 +39,9 @@ This project is registered as OAuth App in GitHub, and use Authjs to handle auth
 
 _Sensitive infomation such as token will be properly handle with SSR and Next Auth ;)_
 
-User can login with their GitHub account, then receive a role "user" or "admin" according to `adminList` (/app/data/admin.ts)
+###### ~~User can login with their GitHub account, then receive a role "user" or "admin" according to `adminList` (/app/data/admin.ts)~~
+
+Now anyone who login with github account is admin.
 
 **User:** only access to read.
 
