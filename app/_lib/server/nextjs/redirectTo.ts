@@ -1,14 +1,14 @@
 import { redirect } from "next/navigation";
 
-export function toSetRepository() {
+export async function toSetRepository() {
   redirect("/set-repository");
 }
 
-export function toIssueList() {
+export async function toIssueList() {
   redirect("/issue-list");
 }
 
-export function toIssue(number: number | string) {
+export async function toIssue(number: number | string) {
   if (typeof number === "number") number = number.toString();
 
   redirect(`/issue-list/issue/${number}`);

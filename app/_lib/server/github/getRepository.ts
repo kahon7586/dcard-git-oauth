@@ -16,7 +16,7 @@ export async function getRepoOrRedirect() {
   const repoValues = await getRepository();
 
   if (repoValues === undefined) {
-    toSetRepository();
+    await toSetRepository();
     return undefined;
   }
 
