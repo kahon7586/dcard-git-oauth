@@ -1,15 +1,16 @@
-import React, { HTMLAttributes } from "react";
+"use client";
+
+import React, { ButtonHTMLAttributes } from "react";
 import Button from "./Button";
 
-interface SignOutBtnProps extends HTMLAttributes<HTMLButtonElement> {
+interface SignOutBtnProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   action: (arg?: unknown) => unknown;
   className?: string;
 }
 
 const SignOutBtn = ({ action, className, ...props }: SignOutBtnProps) => {
   return (
-    <Button className={className} type="submit" onClick={action} {...props}>
-      {" "}
+    <Button className={className} onClick={async () => action()} {...props}>
       Sign Out
     </Button>
   );
