@@ -62,7 +62,7 @@ export async function editIssue(
   if (isRedirect) {
     revalidatePath("/issue-list/issue/[postNumber]", "page");
     // clear cache before return to issue page
-    toIssue(number);
+    await toIssue(number);
 
     // * It is intended design that redirect behavior should be after try-catch block.
     // * see:https://github.com/vercel/next.js/issues/55586#issuecomment-1869024539

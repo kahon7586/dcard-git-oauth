@@ -32,8 +32,6 @@ export async function postIssue(
 
   const { repo, owner } = repoValue;
 
-  console.log(`get repo:${repo}, owner:${owner}`);
-
   let isRedirect = true;
 
   try {
@@ -58,7 +56,8 @@ export async function postIssue(
   if (isRedirect) {
     revalidatePath("/issue-list");
     // clear cache for latest data
-    toIssueList();
+    // redirect("/issue-list");
+    await toIssueList();
 
     // * It is intended design that redirect behavior should be after try-catch block.
     // * see:https://github.com/vercel/next.js/issues/55586#issuecomment-1869024539

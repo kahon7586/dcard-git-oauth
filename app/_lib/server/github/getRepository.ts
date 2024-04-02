@@ -7,6 +7,8 @@ export async function getRepository() {
   const repo = cookieList.get("repo")?.value;
   const owner = cookieList.get("owner")?.value;
 
+  console.log(`get repo:${repo}, owner:${owner}`);
+
   if (repo === undefined || owner === undefined) return undefined;
 
   return { repo, owner };

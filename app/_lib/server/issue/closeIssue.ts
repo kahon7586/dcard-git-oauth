@@ -29,7 +29,7 @@ export async function closeIssue(postNumber: number) {
   }
 
   revalidatePath("/issue-list");
-  toIssueList();
+  await toIssueList();
   return;
 
   // * It is intended design that redirect behavior should be after try-catch block.
