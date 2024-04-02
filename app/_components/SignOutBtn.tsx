@@ -1,5 +1,4 @@
 import React, { HTMLAttributes } from "react";
-import { twMerge } from "tailwind-merge";
 import Button from "./Button";
 
 interface SignOutBtnProps extends HTMLAttributes<HTMLButtonElement> {
@@ -9,17 +8,10 @@ interface SignOutBtnProps extends HTMLAttributes<HTMLButtonElement> {
 
 const SignOutBtn = ({ action, className, ...props }: SignOutBtnProps) => {
   return (
-    <form
-      action={async () => {
-        "use server";
-        await action();
-      }}
-    >
-      <Button className={className} type="submit" {...props}>
-        {" "}
-        Sign Out
-      </Button>
-    </form>
+    <Button className={className} type="submit" onClick={action} {...props}>
+      {" "}
+      Sign Out
+    </Button>
   );
 };
 
