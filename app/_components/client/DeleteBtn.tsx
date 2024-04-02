@@ -1,7 +1,7 @@
 "use client";
 
 import { HTMLAttributes, useState } from "react";
-import CommonBtn from "../Button";
+import Button from "../Button";
 
 interface DeleteBtnProps extends HTMLAttributes<HTMLButtonElement> {
   action: (postNumber: number) => unknown;
@@ -24,9 +24,9 @@ const DeleteBtn = ({ action, postNumber, ...props }: DeleteBtnProps) => {
   }
 
   return (
-    <CommonBtn onClick={handleClickDelete} {...props} disabled={isLoading}>
+    <Button onClick={handleClickDelete} {...props} disabled={isLoading}>
       Delete
-    </CommonBtn>
+    </Button>
   );
 };
 
