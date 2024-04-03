@@ -8,8 +8,6 @@ _maded by kahon7586 in 2024/03_
 [Repository](https://github.com/kahon7586/dcard-git-oauth)  
 [Live demo with vercel](https://dcard-git-oauth.vercel.app/)
 
-_Edit at 2024/03/21_
-
 ## Introduction
 
 This homework is maded by Nextjs 14.1, App router, Typescript and with these following library:
