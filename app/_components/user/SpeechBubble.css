@@ -1,5 +1,5 @@
 .speech-bubble {
-  @apply px-4 py-2 relative bg-white dark:bg-secondary-d;
+  @apply relative bg-white px-4 py-2 dark:bg-secondary-d;
   border-radius: 10px;
   border: 1px solid #cccccc;
 }
@@ -12,5 +12,5 @@
   border-width: 10px;
   border-style: solid;
   border-color: transparent transparent transparent transparent;
-  @apply hidden md:block border-r-bubble dark:border-r-primary;
+  @apply hidden border-r-white md:block dark:border-r-primary-d;
 }
