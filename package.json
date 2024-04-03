@@ -11,6 +11,7 @@
   "dependencies": {
     "@auth/core": "^0.28.0",
     "@octokit/types": "^12.6.0",
+    "@vercel/speed-insights": "^1.0.10",
     "cookie": "^0.6.0",
     "github-markdown-css": "^5.5.1",
     "next": "14.1.1",
