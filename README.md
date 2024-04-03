@@ -31,11 +31,11 @@ Then you can read, post, edit or delete issue as admin, or read as user.
 
 ## Project structure
 
-### Authorization:
+### **Authorization:**
 
 This project is registered as OAuth App in GitHub, and use Authjs to handle authentication and authorization.
 
-_Sensitive infomation such as token will be properly handle with SSR and Next Auth ;)_
+_Sensitive infomation such as token will be properly handle with SSR and Authjs ;)_
 
 ###### ~~User can login with their GitHub account, then receive a role "user" or "admin" according to `adminList` (/app/data/admin.ts)~~
 
@@ -45,34 +45,59 @@ Now anyone who login with github account is admin.
 
 **Admin:** can read, write, edit and delete (or close) issues.
 
-### Post, Read, Edit and Delete:
+Any attemp from **user** to access admin only path ( eg. edit/{post} ) will be automatically redirected in `middleware.ts`
 
-Post: post an issue.  
-Read: load infomation of issues from repo, 10 issues per request.  
-Edit: update an issue.  
-Delete: close an issue.
+---
+
+### **Post, Read, Edit and Delete:**
+
+- Post: post an issue.
+- Read: load infomation of issues from repo, 10 issues per request.
+- Edit: update an issue.
+- Delete: close an issue.
 
 App will conditionally render buttons with these function according to their role by component `AdminOnly`.
 
-Generally speaking these functionality can only accessed by admin, however any request with wrong token will also forbidded by GitHub.
+Generally these functionality can only accessed by admin, however any request with wrong token will also forbidded by GitHub.
 
-### Issue List
+---
 
-Issue list is designed as a infinite scroll container by using a custom hook: `useInfiniteScroll`, every time user scroll down to the bottom will send a request for more data, the condition of loading state and out of data are also properly handled.
+### **Issue List:**
 
-##### _Repo is targeted in environment variables_
+Everytime user scrolls to bottom, 10 issue will be loaded, and `No more data!` is shown when the final issue in repo is loaded. (see `useInfiniteScroll` and `IssueList.tsx`)
+
+If Issue list shows `Not Found`, make sure your enter the right repo path in setting.
 
 ##### Note that pull requests are currently included.
 
-### Issue Page
+---
 
-App will fetch data about this issue and render markdown content with correctly style.
+### **Set Repository:**
 
-When preview markdown, due to gfm (GitHub flavored markdown), the raw body data needs to convert by Github for the most accurate output, so there will be an obvious delay for response.
+User can select their repository, and these value will be stored in cookie.
 
-Title and body will need to be validated before sending request, if validation failed, the form action will interrupt and show error message.
+---
 
-**Note about XSS attack:**  
+### **Issue Page:**
+
+Markdown content will be displayed the same style as github.com, including issue body and comments.
+
+When post and edit issue, you can use and preview syntax.
+
+Title should not remain empty and body should be more than 30 charactors. If validation failded, a error message will be showned.
+
+**_Note about XSS attack:_**  
 The way to display markdown content is directly fetching body data in HTML form from rest api and assign it into `dangerouslySetInnerHTML`, but there's no confirm that Github sanitized these HTML for us.  
 However implement xss sanitizer will remove some special syntax (like task list), so these data still remain unsanitized.  
 Warning about this danger is also commented in code.
+
+---
+
+### **Other:**
+
+- Error handling in `error.js`.
+- loading state in `loading.js`.
+- avoid frequently sending request with `throttle.ts` or disable prop.
+- time formatter for issue-latest-updated.
+- split code for DRY.
+- build custom hook for proper code management.
