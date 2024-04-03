@@ -101,3 +101,4 @@ Warning about this danger is also commented in code.
 - time formatter for issue-latest-updated.
 - split code for DRY.
 - build custom hook for proper code management.
+- use github to manage dev code and vercel.com to deploy production version.
