@@ -102,3 +102,4 @@ Warning about this danger is also commented in code.
 - split code for DRY.
 - build custom hook for proper code management.
 - use github to manage dev code and vercel.com to deploy production version.
+- RWD for app
