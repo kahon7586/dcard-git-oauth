@@ -22,7 +22,7 @@ export default function Error({
       </div>
       <div className="my-8 space-y-2">
         <p className="text-[1.3rem]">
-          <span className="text-[2rem]">🦈</span>: But don't worry!
+          <span className="text-[2rem]">🦈</span>: But don&apos;t worry!
           <span className="italic"> Mr.Shark is here!</span>
         </p>
         <p>He will be with you until we fix the problem!</p>
