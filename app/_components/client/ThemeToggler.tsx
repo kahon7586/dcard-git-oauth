@@ -37,6 +37,18 @@ const ThemeToggler = () => {
     setTheme(themeInitializer);
   }, []);
 
+  useEffect(() => {
+    if (theme === null) return;
+    if (theme === "dark") {
+      require("@/app/markdown-dark.css");
+      return;
+    }
+    if (theme === "light") {
+      require("@/app/markdown-light.css");
+      return;
+    }
+  }, [theme]);
+
   function handleToggle() {
     const html = getHtml();
 
