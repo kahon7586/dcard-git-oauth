@@ -15,7 +15,7 @@ export async function getIssueListData(newPage: number, per_page: number = 10) {
   // https://github.com/kahon7586/dcard-git-oauth/issues
 
   const repoValue = await getRepoOrRedirect();
-  if (repoValue === undefined) return null;
+  if (repoValue === undefined) return "Repository not specified!";
 
   const { repo, owner } = repoValue;
 
