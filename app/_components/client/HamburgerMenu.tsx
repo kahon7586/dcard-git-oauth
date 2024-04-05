@@ -14,12 +14,10 @@ const HamburgerMenu = () => {
 
   return (
     <div onClick={handleClickMenu}>
-      <Button className="border-none  md:hidden">
+      <Button className="border-none md:hidden" aria-label="Menu Toggler">
         <GiHamburgerMenu />
       </Button>
-      <div
-        className={`${isToggle ? "block space-y-1 px-2" : "hidden"} gap-6 md:flex`}
-      >
+      <div className={`${isToggle ? "block px-2" : "hidden"} gap-6 md:flex`}>
         <Link className="block" href="/">
           Home
         </Link>
