@@ -95,7 +95,13 @@ Warning about this danger is also commented in code.
 
 ### **Web Vital Cores:**
 
-Use Lighthouse, Vercel Speed Insights and Pagespeed Insight to optimize web performance. These following is solved problems:
+Use Lighthouse to optimize web performance. Scored over 90 points in all four indicators (Performance, Accessibility, Best Practice, and SEO).
+
+![Lighthouse Score](https://i.imgur.com/U9Xg6nG.png)
+
+![Lighthouse Score](https://imgur.com/NnUuRhi.png)
+
+These following is solved problems:
 
 - ~~Animator file too large in `loadingIcon.tsx`.~~  
   Use webm file instead of gif to show animator.
@@ -113,4 +119,4 @@ Use Lighthouse, Vercel Speed Insights and Pagespeed Insight to optimize web perf
 - split code for DRY.
 - build custom hook for proper code management.
 - use github to manage dev code and vercel.com to deploy production version.
-- RWD for app
+- RWD for mobile and desktop viewport.
