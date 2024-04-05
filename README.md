@@ -66,7 +66,7 @@ Generally these functionality can only accessed by admin, however any request wi
 
 Everytime user scrolls to bottom, 10 issue will be loaded, and `No more data!` is shown when the final issue in repo is loaded. (see `useInfiniteScroll` and `IssueList.tsx`)
 
-If Issue list shows `Not Found`, make sure your enter the right repo path in setting.
+If Issue list shows `Repository is not specified!` or `Repository not found!`, make sure your enter the right repo path in setting.
 
 ##### Note that pull requests are currently included.
 
@@ -90,6 +90,17 @@ Title should not remain empty and body should be more than 30 charactors. If val
 The way to display markdown content is directly fetching body data in HTML form from rest api and assign it into `dangerouslySetInnerHTML`, but there's no confirm that Github sanitized these HTML for us.  
 However implement xss sanitizer will remove some special syntax (like task list), so these data still remain unsanitized.  
 Warning about this danger is also commented in code.
+
+---
+
+### **Web Vital Cores:**
+
+Use Lighthouse, Vercel Speed Insights and Pagespeed Insight to optimize web performance. These following is solved problems:
+
+- ~~Animator file too large in `loadingIcon.tsx`.~~  
+  Use webm file instead of gif to show animator.
+- ~~Buttons do not have an accessible name.~~  
+  Add aria-label.
 
 ---
 
