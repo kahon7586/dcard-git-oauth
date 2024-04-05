@@ -33,7 +33,7 @@ const Footer = async () => {
   const currRepo = await getRepository();
 
   return (
-    <footer className="flex-grow-1 flex flex-col items-center justify-center gap-4 py-4 [&:nth-child(2)]:flex-grow">
+    <footer className="flex flex-col items-center justify-center gap-4 py-4 [&:nth-child(2)]:flex-grow">
       <UserInfo />
       {currRepo
         ? `Repo: ${currRepo.repo}, Owner: ${currRepo.owner}`

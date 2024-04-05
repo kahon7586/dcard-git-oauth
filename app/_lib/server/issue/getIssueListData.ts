@@ -6,32 +6,36 @@ import {
 import { getOctokit } from "../auth/getOctokit";
 import { getRepoOrRedirect } from "../github/getRepository";
 
-export async function getIssueListData(newPage: number, per_page: number = 10) {
-  // Return string as errorMessage
-
+export async function getIssueListData(
+  newPage: number,
+  per_page: number = 10,
+): Promise<{
+  message: string;
+  data: SimpIssueData[] | undefined | null;
+}> {
   const octokit = await getOctokit();
 
   // Example:
   // https://github.com/kahon7586/dcard-git-oauth/issues
 
   const repoValue = await getRepoOrRedirect();
-  if (repoValue === undefined) return null;
+  if (repoValue === undefined)
+    return { message: "Repository is not specified!", data: undefined };
 
   const { repo, owner } = repoValue;
 
   try {
-    const res = await octokit.request("GET /repos/{owner}/{repo}/issues", {
+    const { data } = await octokit.request("GET /repos/{owner}/{repo}/issues", {
       owner: owner,
       repo: repo,
       per_page: per_page,
       page: newPage,
     });
 
-    const { data } = res;
+    if (data.length === 0)
+      return { message: "No issue in this repo!", data: null };
 
-    if (data.length === 0) return null;
-
-    return data.map((issue) => {
+    const dataList = data.map((issue) => {
       const { title, body, id, state, number, user, created_at, updated_at } =
         issue;
 
@@ -50,6 +54,8 @@ export async function getIssueListData(newPage: number, per_page: number = 10) {
 
       return { content: contentData, user: user } as SimpIssueData;
     });
+
+    return { message: "Success.", data: dataList };
   } catch (err: unknown) {
     console.log(err);
     const errRes = err as GithubError;
@@ -61,8 +67,10 @@ export async function getIssueListData(newPage: number, per_page: number = 10) {
       },
     } = errRes;
 
-    if (status === 404) return message;
-    // Usually not found should be the most common case because the repo and owner is specified initailly by user, so it is specially handled
+    if (status === 404) {
+      return { message: "Repository not found!", data: undefined };
+      // Usually not found should be the most common case because the repo and owner is specified initailly by user, so it is specially handled
+    }
 
     throw Error(`${status.toString()} ${message}, see: ${documentation_url}`);
   }

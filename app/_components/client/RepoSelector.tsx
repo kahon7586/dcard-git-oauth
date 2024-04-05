@@ -24,8 +24,8 @@ const RepoSelector = ({ setRepository }: RepoSelectorProps) => {
     const repoValue = getClientCookie("repo");
     const ownerValue = getClientCookie("owner");
 
-    repo!.defaultValue = repoValue ?? "nextauthjs";
-    owner!.defaultValue = ownerValue ?? "next-auth";
+    repo!.defaultValue = repoValue ?? "next.js";
+    owner!.defaultValue = ownerValue ?? "vercel";
   }, []);
 
   async function submitAction(formData: FormData) {

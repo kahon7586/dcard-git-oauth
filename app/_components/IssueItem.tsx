@@ -23,25 +23,29 @@ const IssueItem = ({ issueItem }: IssueItemProps) => {
       href={`/issue-list/issue/${number}`}
       className="mr-2 px-4 py-2 hover:cursor-pointer hover:border-l-4 hover:border-secondary hover:bg-primary-hover dark:hover:bg-primary-hover-d"
     >
-      <div className="flex items-center justify-between">
-        <div className="flex w-screen items-baseline gap-2 overflow-hidden text-xl">
-          <div className="text-primary before:content-['('] after:content-[')'] dark:text-primary-d">
-            {state}
-          </div>
-          <div className="truncate font-bold">{title}</div>
-          <Avatar
-            className="flex-none"
-            avatarUrl={avatar_url}
-            alt={`${login} Avatar`}
-          />
-          <div className="text-nowrap text-sm font-light text-primary dark:text-primary-d">
-            {login}
-            <span className="before:content-['_·_']">
-              {getTimeAgoLabel(created_at, updated_at)}
-            </span>
-          </div>
+      <div className="flex w-full items-baseline gap-2 overflow-hidden text-xl">
+        {/* <--- State ---> */}
+        <div className=" text-primary before:content-['('] after:content-[')'] dark:text-primary-d">
+          {state}
         </div>
-        <div className="flex gap-2"></div>
+
+        {/* <--- Title ---> */}
+        <div className="basis-[100%] truncate font-bold">{title}</div>
+
+        {/* <--- Avatar ---> */}
+        <Avatar
+          className="hidden flex-none md:flex"
+          avatarUrl={avatar_url}
+          alt={`${login} Avatar`}
+        />
+
+        {/* <--- login and time label ---> */}
+        <div className="hidden text-nowrap text-sm  font-light text-primary md:flex dark:text-primary-d">
+          {login}
+          <span className="before:content-['_·_']">
+            {getTimeAgoLabel(created_at, updated_at)}
+          </span>
+        </div>
       </div>
     </Link>
   );

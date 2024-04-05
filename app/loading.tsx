@@ -1,48 +1,22 @@
-import Image from "next/image";
 import React from "react";
-import peppoDance from "@/app/_asset/PeepoDance.gif";
-import crumbCat from "@/app/_asset/crumb-cat.gif";
-import rainbowParrot from "@/app/_asset/rainbowParrot.gif";
+
+const LoadingVideo = ({ src }: { src: string }) => {
+  return <video src={src} loop playsInline autoPlay width={50} height={75} />;
+};
 
 const PeppoDance = () => {
-  return (
-    <Image
-      src={peppoDance}
-      alt="loading animation"
-      width={50}
-      height={70}
-      unoptimized
-    />
-  );
+  return <LoadingVideo src="/PeepoDance.webm" />;
 };
 
 const CrumbCat = () => {
-  return (
-    <Image
-      className="h-fit flex-grow-0 overflow-hidden rounded-full"
-      src={crumbCat}
-      alt="loading animation"
-      width={50}
-      height={50}
-      unoptimized
-    />
-  );
+  return <LoadingVideo src="/crumb-cat.webm" />;
 };
 
 const RainbowParrot = () => {
-  return (
-    <Image
-      className="h-fit overflow-hidden"
-      src={rainbowParrot}
-      alt="loading animation"
-      width={50}
-      height={50}
-      unoptimized
-    />
-  );
+  return <LoadingVideo src="/rainbowParrot.webm" />;
 };
 
-function getRandonIcon() {
+function getRandomIcon() {
   const number = Math.floor(Math.random() * 3);
   switch (number) {
     case 0:
@@ -60,7 +34,7 @@ function getRandonIcon() {
 }
 
 const Loading = () => {
-  const LoadingIcon = getRandonIcon();
+  const LoadingIcon = getRandomIcon();
 
   return (
     <div className="relative flex flex-grow items-center justify-center gap-4">

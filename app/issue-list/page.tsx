@@ -8,21 +8,12 @@ import LinkButton from "../_components/LinkButton";
 const ISSUES_PER_LOAD = 10;
 
 const page = async () => {
-  async function getIssueNodeList(pages: number) {
+  async function getIssueList(pages: number) {
     "use server";
-    const issueListData = await getIssueListData(pages, ISSUES_PER_LOAD);
-
-    if (typeof issueListData === "string") return issueListData;
-    // Error message
-
-    return issueListData
-      ? issueListData.map((issue) => (
-          <IssueItem issueItem={issue} key={issue.content.id} />
-        ))
-      : null;
+    return await getIssueListData(pages, ISSUES_PER_LOAD);
   }
 
-  const firstPageData = await getIssueNodeList(1);
+  const firstPageData = await getIssueList(1);
   /*
    * Note that fetch data first rather than in client side(<IssueList/>)
    * could lead to better UX
@@ -41,7 +32,7 @@ const page = async () => {
       <hr className="w-full border-t border-zinc-400" />
 
       <div className="w-full">
-        <IssueList firstPageData={firstPageData} action={getIssueNodeList} />
+        <IssueList firstPageData={firstPageData} action={getIssueList} />
       </div>
     </div>
   );
