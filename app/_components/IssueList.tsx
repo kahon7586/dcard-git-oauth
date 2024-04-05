@@ -3,34 +3,42 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useInfiniteScroll } from "../_hook/useInfiniteScroll";
 import Spinner from "./Spinner";
+import { SimpIssueData } from "../_ts/data/issueData";
+import IssueItem from "./IssueItem";
 
-interface IssueListProps {
-  firstPageData: React.JSX.Element[] | string | null;
-  action: (pages: number) => Promise<React.JSX.Element[] | string | null>;
+function dataToItemList(data: SimpIssueData[]) {
+  return data.map((issue) => (
+    <IssueItem issueItem={issue} key={issue.content.id} />
+  ));
 }
 
-const IssueList = ({
-  firstPageData,
-  action: getIssueNodeList,
-}: IssueListProps) => {
-  const isErrorOccur = typeof firstPageData === "string";
+interface IssueListProps {
+  firstPageData: {
+    message: string;
+    data: SimpIssueData[] | undefined | null;
+  };
+  action: (
+    pages: number,
+  ) => Promise<{ message: string; data: SimpIssueData[] | undefined | null }>;
+}
+
+const IssueList = ({ firstPageData, action: getIssueList }: IssueListProps) => {
+  const { message, data } = firstPageData;
 
   const issueListRef = useRef<HTMLDivElement | null>(null);
   const pageRef = useRef(2); // ref for next page number, start from 1
 
   const [list, setList] = useState(() => {
-    if (isErrorOccur) return null;
+    if (!data) return null;
 
-    return firstPageData;
+    return dataToItemList(data);
   });
-  const [isNoMoreData, setIsNoMoreData] = useState(
-    firstPageData === null || isErrorOccur,
-  );
+
+  const [isNoMoreData, setIsNoMoreData] = useState(!data);
 
   const [error, setError] = useState(() => {
-    if (isErrorOccur) {
-      const errorMessage = firstPageData;
-      return errorMessage;
+    if (isNoMoreData) {
+      return message;
     }
     return null;
   });
@@ -38,35 +46,36 @@ const IssueList = ({
   const [isBottom, setIsBottom] = useInfiniteScroll(issueListRef);
 
   useEffect(() => {
-    if (isBottom === false || isNoMoreData || isErrorOccur) return;
+    if (isBottom === false || isNoMoreData) return;
 
     async function pushData() {
-      const data = await getIssueNodeList(pageRef.current);
-      const isErrorOccur = typeof data === "string";
-      if (isErrorOccur) {
+      const { message, data: newData } = await getIssueList(pageRef.current);
+
+      if (!newData) {
         setIsNoMoreData(true);
-        setError(data);
+        setError("No more data!");
         return;
       }
 
-      if (data === null) {
-        setIsNoMoreData(true);
-        return;
-      }
+      setList((prev) => {
+        const prevData = prev!;
 
-      setList((prev) => [...prev!, ...data]);
+        const newDataList = dataToItemList(newData);
+
+        return [...prevData, ...newDataList];
+      });
       pageRef.current += 1;
       setIsBottom(false);
     }
     pushData();
-  }, [isBottom, getIssueNodeList, isNoMoreData, setIsBottom, isErrorOccur]);
+  }, [isBottom, getIssueList, isNoMoreData, setIsBottom]);
 
   return (
     <div
       className="container flex max-h-[300px] flex-col overflow-auto bg-primary dark:bg-primary-d"
       ref={issueListRef}
     >
-      {isBottom && !isNoMoreData && !isErrorOccur ? (
+      {isBottom && !isNoMoreData ? (
         <div className="sticky top-[50%] my-4 flex cursor-default items-center justify-center ">
           <Spinner />
           Loading...
@@ -75,9 +84,7 @@ const IssueList = ({
 
       {list}
 
-      <div className="my-4 flex justify-center">
-        {isErrorOccur ? error : isNoMoreData ? "No More Data!" : null}
-      </div>
+      {error ? <div className="my-4 flex justify-center">{error}</div> : null}
     </div>
   );
 };
