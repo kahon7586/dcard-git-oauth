@@ -1,16 +1,12 @@
 <!-- ctrl + shift + v to preview -->
 <!-- ctrl + k, then press v to split -->
 
-# Frontend Intern Homework
-
-_maded by kahon7586 in 2024/03_
-
-[Repository](https://github.com/kahon7586/dcard-git-oauth)  
+ 
 [Live demo with vercel](https://dcard-git-oauth.vercel.app/)
 
 ## Introduction
 
-This homework is maded by Nextjs 14.1, App router, Typescript and with these following library:
+This work is maded by Nextjs 14.1, App router, Typescript and with these following library:
 
 - Tailwind
 - Tailwind-merge
